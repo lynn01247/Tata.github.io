@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -35,7 +36,7 @@ import com.tatait.tataweibo.util.Tools;
  * 
  */
 public class OAuthActivity extends Activity {
-
+	private long exitTime = 0;
 	private static final String TAG = "OAuthActivity";
 	private Dialog dialog;
 	/**
@@ -79,20 +80,20 @@ public class OAuthActivity extends Activity {
 			}
 
 		});
-		/**
-		 * 注销按钮的动作
-		 */
-		Button cancelBtn = (Button) diaView.findViewById(R.id.btn_cancel);
-		cancelBtn.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				/**
-				 * 注销,取消授权，去掉token信息
-				 */
-				AccessTokenKeeper.clear(getApplicationContext());
-				mAccessToken = new Oauth2AccessToken();
-			}
-		});
+//		/**
+//		 * 注销登陆的动作
+//		 */
+//		Button cancelBtn = (Button) diaView.findViewById(R.id.btn_cancel);
+//		cancelBtn.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				/**
+//				 * 注销,取消授权，去掉token信息
+//				 */
+//				AccessTokenKeeper.clear(getApplicationContext());
+//				mAccessToken = new Oauth2AccessToken();
+//			}
+//		});
 	}
 
 	/**
@@ -199,5 +200,23 @@ public class OAuthActivity extends Activity {
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
 		finish();
+	}
+
+	// 主菜单点击返回键，弹出对话框
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK
+				&& event.getAction() == KeyEvent.ACTION_DOWN) {
+			if ((System.currentTimeMillis() - exitTime) > 2000) {
+				Toast.makeText(getApplicationContext(), R.string.quit,
+						Toast.LENGTH_SHORT).show();
+				exitTime = System.currentTimeMillis();
+			} else {
+				finish();
+				System.exit(0);
+			}
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

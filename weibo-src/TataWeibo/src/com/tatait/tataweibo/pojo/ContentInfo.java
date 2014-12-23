@@ -17,6 +17,8 @@ public class ContentInfo {
 	private String userIcon;
 	// 发布时间
 	private String time;
+	// 来自
+	private String content_source;
 	// 是否有图片
 	private Boolean haveImage = false;
 	// 显示图片内容
@@ -28,6 +30,14 @@ public class ContentInfo {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getContent_source() {
+		return content_source;
+	}
+
+	public void setContent_source(String content_source) {
+		this.content_source = content_source;
 	}
 
 	public String getImage_context() {

@@ -15,6 +15,8 @@
 package com.tatait.tataweibo.adapter;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -47,6 +49,7 @@ public class HomeAdapters extends BaseAdapter {
         public TextView content_user;   // 对应发微博人的名称
         public TextView content_time;   // 对应发微博的时间
         public TextView content_text;   // 对应发微博的内容
+        public TextView content_source;   // 对应发微博的来自
     }
     
     private  HomeActivity homeActivity = null;
@@ -69,7 +72,7 @@ public class HomeAdapters extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         asyncImageLoader = new AsyncImageLoader();
         //记载微博的每条需要显示在什么布局上的布局对象
-        convertView = LayoutInflater.from(this.homeActivity.getApplicationContext()).inflate(R.layout.home_item, null);
+        convertView = LayoutInflater.from(this.homeActivity.getApplicationContext()).inflate(R.layout.home_item_weibo, null);
         //创建一个层次对应组件的类
         ContentHolder ch = new ContentHolder();
         //将R.layout.home_item 对应的组件和ContentHolder对象进行关联，提高效率
@@ -78,12 +81,21 @@ public class HomeAdapters extends BaseAdapter {
         ch.content_user = (TextView) convertView.findViewById(R.id.content_user);
         ch.content_image = (ImageView) convertView.findViewById(R.id.content_image);
         ch.content_text = (TextView) convertView.findViewById(R.id.content_text);
+        ch.content_source = (TextView) convertView.findViewById(R.id.content_source);
         //获得一条微博数据
         ContentInfo info = this.contentList.get(position);
         if (info != null) {
             convertView.setTag(info.getId());
             ch.content_user.setText(info.getUserName());
             ch.content_time.setText(info.getTime());
+            String  str = info.getContent_source(); 
+            Pattern p = Pattern.compile("<a[^>]*>([^<]*)</a>"); 
+            Matcher m = p.matcher(str); 
+            String source = "";
+			while (m.find()) {
+				source = m.group(1);
+			}
+            ch.content_source.setText("来自 "+source);
             ch.content_text.setText(info.getText(),
                     TextView.BufferType.SPANNABLE);
             

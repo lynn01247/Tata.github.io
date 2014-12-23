@@ -11,6 +11,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
@@ -32,12 +33,15 @@ public class HomeActivity extends Activity {
 	// 保存需要显示的多条微博数据
 	public ArrayList<ContentInfo> contentList = null;
 	private Button refresh_weibo, writer_weibo;
+	private TextView login_user;
+	private UserInfo user ;
 	private Oauth2AccessToken accessToken = null;
 	private HomeAdapters adapater = null;
 	private Tools tools;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Log.i(TAG, "onCreate");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home);
 
@@ -45,18 +49,20 @@ public class HomeActivity extends Activity {
 
 		home_lv = (ListView) findViewById(R.id.home_lv);
 		refresh_weibo = (Button) findViewById(R.id.btn_refresh);
+		login_user = (TextView) findViewById(R.id.txt_wb_title);
 		writer_weibo = (Button) findViewById(R.id.btn_writer);
 		MyClick click = new MyClick();
 		refresh_weibo.setOnClickListener(click);
 		writer_weibo.setOnClickListener(click);
-		Log.i(TAG, "onCreate");
+		user = UserSession.nowUser;
+		login_user.setText(user.getUser_name());
 	}
 
 	@Override
 	protected void onResume() {
 		Log.i(TAG, "onResume");
-		init();
 		super.onResume();
+		init();
 	}
 
 	class MyClick implements View.OnClickListener {
@@ -80,7 +86,6 @@ public class HomeActivity extends Activity {
 		tools = Tools.getInstance();
 		// 获得主要显示的数据
 		accessToken = AccessTokenKeeper.readAccessToken(this);
-		UserInfo user = UserSession.nowUser;
 		Toast.makeText(this, user.getUser_id().toString(), Toast.LENGTH_LONG)
 				.show();
 		contentList = tools.loadHomeData(Constants.GET_PUBLIC, accessToken);

@@ -239,7 +239,7 @@ public class Tools {
 			params.add(new BasicNameValuePair("source", Constants.APP_KEY));
 			params.add(new BasicNameValuePair("access_token", accessToken
 					.getToken()));
-			// params.add(new BasicNameValuePair("count", "2"));
+			params.add(new BasicNameValuePair("count", "15"));
 			// 执行数据获取操作
 			Response res = Tools.getInstance().get(client,
 					Constants.WEIBO_GET_STATUS_PUBLIC_TIMELINE, params);
@@ -288,6 +288,7 @@ public class Tools {
 						// 比较发表微博时间和当前时间之间距离时常
 						time = new DateUtils().twoDateDistance(startDate,
 								nowDate);
+						String content_source = d.getString("source");
 						if (contentList == null) {
 							// 创建存储每条微博的集合
 							contentList = new ArrayList<ContentInfo>();
@@ -300,6 +301,7 @@ public class Tools {
 						contentInfo.setText(text);
 						contentInfo.setHaveImage(haveImg);
 						contentInfo.setUserIcon(userIcon);
+						contentInfo.setContent_source(content_source);
 						// 将单条微博数据设置到集合中
 						contentList.add(contentInfo);
 

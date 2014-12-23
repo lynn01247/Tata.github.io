@@ -7,6 +7,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -35,7 +36,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 	private Button login;
 	private Button logout;
 	private ImageView adduser;
-
+	private long exitTime = 0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,7 +62,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 			break;
 
 		case R.id.logout:
-			Toast.makeText(LoginActivity.this, R.string.exit, Toast.LENGTH_SHORT).show();
+			finish();
+			System.exit(0);
 			break;
 
 		case R.id.adduser:
@@ -111,6 +113,23 @@ public class LoginActivity extends Activity implements OnClickListener {
 				public void onNothingSelected(AdapterView<?> parent) {}
 			});
 		}
+	}
 
+	// 主菜单点击返回键，弹出对话框
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK
+				&& event.getAction() == KeyEvent.ACTION_DOWN) {
+			if ((System.currentTimeMillis() - exitTime) > 2000) {
+				Toast.makeText(getApplicationContext(), R.string.quit,
+						Toast.LENGTH_SHORT).show();
+				exitTime = System.currentTimeMillis();
+			} else {
+				finish();
+				System.exit(0);
+			}
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

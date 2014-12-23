@@ -6,5 +6,9 @@
     <color name="yellow">#ffff00</color>
     <color name="red">#ff0000</color>
     <color name="black">#000000</color>
-    <color name="huise">#686767</color>  
+    <color name="huise">#686767</color>
+    <color name="yinse">#a1a3a6</color>
+    <color name="user">#660033</color>
+    <color name="oringe">#ff3300</color>
+    <color name="sblack">#281f1d</color>
 </resources>

@@ -6,7 +6,11 @@
     <string name="oauth_info_title">授权提示:</string>
     <string name="oauth">授权</string>
     <string name="cancel_oauth">注销</string>
+    <string name="login">登录</string>
+    <string name="add_user">增加用户</string>
+    <string name="login_user">登陆用户</string>
     <string name="exit">退出</string>
+    <string name="quit">再按一次退出程序</string>
     <string name="oauth_info_body">首次使用需进行登录授权！</string>
     <string name="weibosdk_demo_token_info">Token 信息：</string>
     <string name="weibosdk_demo_toast_auth_success">授权成功</string>

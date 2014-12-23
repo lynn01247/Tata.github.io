@@ -35,7 +35,7 @@ public class Constants {
 	 * 微博接口之获取最新的公共微博
 	 */
 	public final static String WEIBO_GET_STATUS_PUBLIC_TIMELINE = WEIBO_WEBSITE
-			+ "/2/statuses/public_timeline.json";
+			+ "/2/statuses/home_timeline.json";
 	/**
      * DALVIK
      */
