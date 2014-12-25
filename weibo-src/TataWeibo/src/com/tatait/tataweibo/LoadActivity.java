@@ -35,28 +35,33 @@ public class LoadActivity extends Activity {
 	        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 	        StrictMode.setThreadPolicy(policy);
 	    }
-		ImageView loadImage = (ImageView)findViewById(R.id.loadImage);
-		//设置透明度渐变效果(0.0-1.0)
-		AlphaAnimation animation = new AlphaAnimation(0.3f,1.0f);
-		//设置动画持续时间
-		animation.setDuration(3000);
-		//将组件与动画进行关联
-		loadImage.setAnimation(animation);
-		animation.setAnimationListener(new AnimationListener() {
-			//动画开始
-			@Override
-			public void onAnimationStart(Animation animation) {
-				Toast.makeText(LoadActivity.this, R.string.welcome, Toast.LENGTH_SHORT).show();
-			}
-			//动画结束
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				init();
-			}
-			//动画重复
-			@Override
-			public void onAnimationRepeat(Animation animation) {}
-		});
+		if(AccessTokenKeeper.readLoad(LoadActivity.this)){
+			ImageView loadImage = (ImageView)findViewById(R.id.loadImage);
+			//设置透明度渐变效果(0.0-1.0)
+			AlphaAnimation animation = new AlphaAnimation(0.3f,1.0f);
+			//设置动画持续时间
+			animation.setDuration(3000);
+			//将组件与动画进行关联
+			loadImage.setAnimation(animation);
+			animation.setAnimationListener(new AnimationListener() {
+				//动画开始
+				@Override
+				public void onAnimationStart(Animation animation) {
+					Toast.makeText(LoadActivity.this, R.string.welcome, Toast.LENGTH_SHORT).show();
+				}
+				//动画结束
+				@Override
+				public void onAnimationEnd(Animation animation) {
+					init();
+				}
+				//动画重复
+				@Override
+				public void onAnimationRepeat(Animation animation) {}
+			});
+		}else{
+			init();
+		}
+		
 	}
 
 	@Override
@@ -90,7 +95,7 @@ public class LoadActivity extends Activity {
 			finish();
 		}else{
 			//如果登录过则跳转到登录页面
-			Intent intent = new Intent(this,LoginActivity.class);
+			Intent intent = new Intent(this,LoginCircleActivity.class);
 			startActivity(intent);
 			finish();
 		}

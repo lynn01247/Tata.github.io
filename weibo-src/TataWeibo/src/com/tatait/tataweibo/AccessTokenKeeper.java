@@ -19,6 +19,8 @@ public class AccessTokenKeeper {
     private static final String KEY_ACCESS_TOKEN  = "access_token";
     private static final String KEY_EXPIRES_IN    = "expires_in";
     
+    private static final String LOAD = "tatait_load";
+    private static final String LOADVILABLE = "true";
     /**
      * 保存 Token 对象到 SharedPreferences。
      * 
@@ -29,7 +31,6 @@ public class AccessTokenKeeper {
         if (null == context || null == token) {
             return;
         }
-        
         SharedPreferences pref = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_APPEND);
         Editor editor = pref.edit();
         editor.putString(KEY_UID, token.getUid());
@@ -72,5 +73,35 @@ public class AccessTokenKeeper {
         Editor editor = pref.edit();
         editor.clear();
         editor.commit();
+    }
+    
+    /**
+     * 保存 是否加载动画。
+     * 
+     * @param context 应用程序上下文环境
+     * @param flag 是否加载动画
+     */
+    public static void writeLoad(Context context,boolean flag) {
+        if (null == context) {
+            return;
+        }
+        SharedPreferences pref = context.getSharedPreferences(LOAD, Context.MODE_APPEND);
+        Editor editor = pref.edit();
+        editor.putBoolean(LOADVILABLE, flag);
+        editor.commit();
+    }
+    /**
+     * 从 SharedPreferences 是否加载动画
+     * 
+     * @param context 应用程序上下文环境
+     * 
+     * @return true/false
+     */
+    public static boolean readLoad(Context context) {
+        if (null == context) {
+            return true;
+        }
+        SharedPreferences pref = context.getSharedPreferences(LOAD, Context.MODE_APPEND);
+        return pref.getBoolean(LOADVILABLE, false);
     }
 }

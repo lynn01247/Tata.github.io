@@ -11,6 +11,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
@@ -36,6 +37,7 @@ import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.Settings;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
@@ -53,10 +55,13 @@ import com.tatait.tataweibo.pojo.UserInfo;
  * 
  */
 public class Tools {
+	private static final String TAG = "Tools";
 	private MultiThreadedHttpConnectionManager connectionManager;
 	private static Tools instance = null;
-	ArrayList<ContentInfo> contentList = null;;
+	LinkedList<ContentInfo> contentList = null;
 	private UserInfo user = null;
+	private FileService file;
+	int page;
 
 	private Tools() {
 	}
@@ -181,6 +186,7 @@ public class Tools {
 	 */
 	public Response get(HttpClient client, String url,
 			List<BasicNameValuePair> params) {
+		Log.i("online", "getting data...........");
 		String getPath = "";
 		for (int i = 0; i < params.size(); i++) {
 			BasicNameValuePair nameValuePair = (BasicNameValuePair) params
@@ -227,24 +233,39 @@ public class Tools {
 	 *            TODO
 	 * @param accessToken
 	 */
-	public ArrayList<ContentInfo> loadHomeData(int flag,
-			Oauth2AccessToken accessToken) {
+	public LinkedList<ContentInfo> loadHomeData(int flag,
+			Oauth2AccessToken accessToken, Context context) {
+		file = new FileService(context);
+		page = 1;
+		String jsonString = "";
 		if (UserSession.nowUser != null) {
 			// 获得当前用户对象
 			user = UserSession.nowUser;
-			HttpClient client = Tools.getInstance().httpClientInit();
-			// 创建参数绑定集合
-			List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-			// 参数绑定
-			params.add(new BasicNameValuePair("source", Constants.APP_KEY));
-			params.add(new BasicNameValuePair("access_token", accessToken
-					.getToken()));
-			params.add(new BasicNameValuePair("count", "15"));
-			// 执行数据获取操作
-			Response res = Tools.getInstance().get(client,
-					Constants.WEIBO_GET_STATUS_PUBLIC_TIMELINE, params);
+			if (file.dataExpired()) {
+				HttpClient client = Tools.getInstance().httpClientInit();
+				// 创建参数绑定集合
+				List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+				// 参数绑定
+				params.add(new BasicNameValuePair("source", Constants.APP_KEY));
+				params.add(new BasicNameValuePair("access_token", accessToken
+						.getToken()));
+//				params.add(new BasicNameValuePair("count", "5"));
+				params.add(new BasicNameValuePair("page", Integer.valueOf(page)
+						.toString()));
+				// 执行数据获取操作
+				Response res = Tools.getInstance().get(client,
+						Constants.WEIBO_GET_STATUS_PUBLIC_TIMELINE, params);
+				jsonString = res.toString();
+				file.saveDate(jsonString);
+			} else {
+				try {
+					jsonString = file.readFile(FileService.PUBLICLINEINFO);
+				} catch (Exception e) {
+					Log.e(TAG, e.toString());
+				}
+			}
 			try {
-				JSONObject json = new JSONObject(res.toString());
+				JSONObject json = new JSONObject(jsonString);
 				String statuses = json.getString("statuses");
 				JSONArray data = new JSONArray(statuses);
 
@@ -291,7 +312,7 @@ public class Tools {
 						String content_source = d.getString("source");
 						if (contentList == null) {
 							// 创建存储每条微博的集合
-							contentList = new ArrayList<ContentInfo>();
+							contentList = new LinkedList<ContentInfo>();
 						}
 						// 数据设置
 						contentInfo.setId(id);
@@ -303,8 +324,7 @@ public class Tools {
 						contentInfo.setUserIcon(userIcon);
 						contentInfo.setContent_source(content_source);
 						// 将单条微博数据设置到集合中
-						contentList.add(contentInfo);
-
+						contentList.addLast(contentInfo);
 					}
 				}
 			} catch (JSONException e) {
@@ -313,4 +333,209 @@ public class Tools {
 		}
 		return contentList;
 	}
+
+	/**
+	 * 获得主页数据--加载更多
+	 * 
+	 * @param flag
+	 *            TODO
+	 * @param accessToken
+	 */
+	public LinkedList<ContentInfo> loadMoreHomeData(int flag,
+			Oauth2AccessToken accessToken, Context context) {
+		++page;
+		file = new FileService(context);
+		String jsonString = "";
+		if (UserSession.nowUser != null) {
+			// 获得当前用户对象
+			user = UserSession.nowUser;
+			HttpClient client = Tools.getInstance().httpClientInit();
+			// 创建参数绑定集合
+			List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+			// 参数绑定
+			params.add(new BasicNameValuePair("source", Constants.APP_KEY));
+			params.add(new BasicNameValuePair("access_token", accessToken
+					.getToken()));
+//			params.add(new BasicNameValuePair("count", "5"));
+			params.add(new BasicNameValuePair("page", Integer.valueOf(page)
+					.toString()));
+			// 执行数据获取操作
+			Response res = Tools.getInstance().get(client,
+					Constants.WEIBO_GET_STATUS_PUBLIC_TIMELINE, params);
+			jsonString = res.toString();
+			file.saveDate(jsonString);
+			try {
+				JSONObject json = new JSONObject(jsonString);
+				String statuses = json.getString("statuses");
+				JSONArray data = new JSONArray(statuses);
+
+				// 因为返回的是JSONArray表示包含了多条weibo数据，所以进行循环解析
+				for (int i = 0; i < data.length(); i++) {
+					// 获得单条微博数据
+					JSONObject d = data.getJSONObject(i);
+					if (d != null) {
+						// 创建一个对象存储每条微博数据
+						ContentInfo contentInfo = new ContentInfo();
+						// 获得用户数据
+						JSONObject u = d.getJSONObject("user");
+						if (d.has("retweeted_status")) {
+							JSONObject r = d.getJSONObject("retweeted_status");
+						}
+						// 获得一条wiebo id
+						String id = d.getString("id");
+						// 获得发weibo 用户id
+						String userId = u.getString("id");
+						// 获得发weibo 用户的名称
+						String userName = u.getString("screen_name");
+						// 获得发weibo 用户的头像url链接
+						String userIcon = u.getString("profile_image_url");
+						// 获得发weibo的时间
+						String time = d.getString("created_at");
+						// 获得weibo内容
+						String text = d.getString("text");
+						Boolean haveImg = false;
+						// 判断微博存在带图片信息
+						if (d.has("thumbnail_pic")) {
+							haveImg = true;
+							// 获得缩略图url链接
+							String thumbnail_pic = d.getString("thumbnail_pic");
+							contentInfo.setImage_context(thumbnail_pic);
+
+						}
+						// 通过字符串构造发微博的时间
+						Date startDate = new Date(time);
+						// 获得当前时间
+						Date nowDate = Calendar.getInstance().getTime();
+						// 比较发表微博时间和当前时间之间距离时常
+						time = new DateUtils().twoDateDistance(startDate,
+								nowDate);
+						String content_source = d.getString("source");
+						if (contentList == null) {
+							// 创建存储每条微博的集合
+							contentList = new LinkedList<ContentInfo>();
+						}
+						// 数据设置
+						contentInfo.setId(id);
+						contentInfo.setUserId(userId);
+						contentInfo.setUserName(userName);
+						contentInfo.setTime(time);
+						contentInfo.setText(text);
+						contentInfo.setHaveImage(haveImg);
+						contentInfo.setUserIcon(userIcon);
+						contentInfo.setContent_source(content_source);
+						// 将单条微博数据设置到集合中
+						contentList.addLast(contentInfo);
+					}
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		return contentList;
+	}
+
+	/**
+	 * 获得主页数据--刷新
+	 * 
+	 * @param flag
+	 *            TODO
+	 * @param accessToken
+	 */
+	public LinkedList<ContentInfo> reflashHomeData(int flag,
+			Oauth2AccessToken accessToken, Context context) {
+		file = new FileService(context);
+		String jsonString = "";
+		String since_id = "0";
+		if (UserSession.nowUser != null) {
+			// 获得当前用户对象
+			user = UserSession.nowUser;
+			if (contentList == null) {
+				// 创建存储每条微博的集合
+				contentList = new LinkedList<ContentInfo>();
+			}else{
+				since_id = contentList.get(0).getId();
+			}
+			HttpClient client = Tools.getInstance().httpClientInit();
+			// 创建参数绑定集合
+			List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+			// 参数绑定
+			params.add(new BasicNameValuePair("source", Constants.APP_KEY));
+			params.add(new BasicNameValuePair("access_token", accessToken
+					.getToken()));
+			params.add(new BasicNameValuePair("since_id", since_id));
+			// 执行数据获取操作
+			Response res = Tools.getInstance().get(client,
+					Constants.WEIBO_GET_STATUS_PUBLIC_TIMELINE, params);
+			jsonString = res.toString();
+			file.saveDate(jsonString);
+			try {
+				JSONObject json = new JSONObject(jsonString);
+				String statuses = json.getString("statuses");
+				JSONArray data = new JSONArray(statuses);
+
+				// 因为返回的是JSONArray表示包含了多条weibo数据，所以进行循环解析
+				for (int i = 0; i < data.length(); i++) {
+					// 获得单条微博数据
+					JSONObject d = data.getJSONObject(i);
+					if (d != null) {
+						// 创建一个对象存储每条微博数据
+						ContentInfo contentInfo = new ContentInfo();
+						// 获得用户数据
+						JSONObject u = d.getJSONObject("user");
+						if (d.has("retweeted_status")) {
+							JSONObject r = d.getJSONObject("retweeted_status");
+						}
+						// 获得一条wiebo id
+						String id = d.getString("id");
+						// 获得发weibo 用户id
+						String userId = u.getString("id");
+						// 获得发weibo 用户的名称
+						String userName = u.getString("screen_name");
+						// 获得发weibo 用户的头像url链接
+						String userIcon = u.getString("profile_image_url");
+						// 获得发weibo的时间
+						String time = d.getString("created_at");
+						// 获得weibo内容
+						String text = d.getString("text");
+						Boolean haveImg = false;
+						// 判断微博存在带图片信息
+						if (d.has("thumbnail_pic")) {
+							haveImg = true;
+							// 获得缩略图url链接
+							String thumbnail_pic = d.getString("thumbnail_pic");
+							contentInfo.setImage_context(thumbnail_pic);
+
+						}
+						// 通过字符串构造发微博的时间
+						Date startDate = new Date(time);
+						// 获得当前时间
+						Date nowDate = Calendar.getInstance().getTime();
+						// 比较发表微博时间和当前时间之间距离时常
+						time = new DateUtils().twoDateDistance(startDate,
+								nowDate);
+						String content_source = d.getString("source");
+						if (contentList == null) {
+							// 创建存储每条微博的集合
+							contentList = new LinkedList<ContentInfo>();
+						}
+						// 数据设置
+						contentInfo.setId(id);
+						contentInfo.setUserId(userId);
+						contentInfo.setUserName(userName);
+						contentInfo.setTime(time);
+						contentInfo.setText(text);
+						contentInfo.setHaveImage(haveImg);
+						contentInfo.setUserIcon(userIcon);
+						contentInfo.setContent_source(content_source);
+						// 将单条微博数据设置到集合中
+						contentList.addFirst(contentInfo);
+					}
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		return contentList;
+	}
+
 }

@@ -58,7 +58,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.login:
-			startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+			startActivity(new Intent(LoginActivity.this, MainActivity.class));
+			finish();
 			break;
 
 		case R.id.logout:

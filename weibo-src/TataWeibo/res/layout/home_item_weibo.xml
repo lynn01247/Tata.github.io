@@ -36,6 +36,16 @@
                 android:includeFontPadding="false"
                 android:textSize="20sp">
             </TextView>
+            <TextView
+                android:id="@+id/content_user_id"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:layout_toRightOf="@+id/content_user"
+                android:textColor="@color/oringe"
+                android:includeFontPadding="false"
+                android:textSize="10sp">
+            </TextView>
 
             <TextView
                 android:id="@+id/content_time"

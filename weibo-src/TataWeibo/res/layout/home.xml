@@ -9,26 +9,22 @@
     <include
         android:id="@+id/layout_title_bar"
         layout="@layout/tilte_bar" />
-	<!-- 底部菜单 -->	
-    <include
-        android:id="@+id/layout_foot_bar"
-        layout="@layout/foot_bar" />
 
     <!-- 加载进度条 -->
     <include
         android:id="@+id/load_progress"
         layout="@layout/progress" />
 
-    <ListView
+    <com.tatait.tataweibo.XListView.XListView
         android:id="@+id/home_lv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_margin="2dp"
-        android:background="#BBFFFFFF"
-        android:cacheColorHint="#00000000"
+        android:background="@color/yinse"
+        android:cacheColorHint="@color/touming"
         android:divider="@drawable/link"
         android:dividerHeight="8dp"
         android:fastScrollEnabled="true"
-        android:focusable="true" />
-
+        android:focusable="true"
+        android:visibility="gone"/>
 </LinearLayout>

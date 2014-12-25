@@ -1,0 +1,32 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sblue"
+    android:gravity="center" >
+
+    <ImageView
+        android:layout_width="82.0dip"
+        android:layout_height="82.0dip"
+        android:layout_centerInParent="true"
+        android:contentDescription="@null"
+        android:src="@drawable/me_head_bg" />
+
+    <com.tatait.tataweibo.circular.CircularImage
+        android:id="@+id/cover_user_photo"
+        android:layout_width="74.0dip"
+        android:layout_height="74.0dip"
+        android:layout_centerInParent="true" />
+    
+    <TextView
+        android:id="@+id/circle_text"
+        android:layout_below="@+id/cover_user_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/welcomback"
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
+        android:textSize="30sp" />
+
+</RelativeLayout>
