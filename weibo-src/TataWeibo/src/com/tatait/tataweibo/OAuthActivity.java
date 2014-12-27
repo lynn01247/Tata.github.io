@@ -197,7 +197,7 @@ public class OAuthActivity extends Activity {
 	 * 跳转登陆页面
 	 */
 	protected void makeToLogin() {
-		Intent intent = new Intent(this, LoginActivity.class);
+		Intent intent = new Intent(this, LoginCircleActivity.class);
 		startActivity(intent);
 		finish();
 	}

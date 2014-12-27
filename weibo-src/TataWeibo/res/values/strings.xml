@@ -30,6 +30,8 @@
     <string name="main_my_info">我的资料</string>
     <string name="menu_search">搜索</string>
     <string name="more">更多</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
     <string name="loading">正在加载...</string>
     <string name="xlistview_header_hint_normal">下拉刷新</string>
     <string name="xlistview_header_hint_ready">松开刷新数据</string>

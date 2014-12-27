@@ -4,15 +4,17 @@
     android:layout_height="wrap_content"
     android:background="@color/sblue"
     android:paddingLeft="5dp"
-    android:paddingRight="5dp" >
+    android:paddingRight="5dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp" >
 
     <Button
-        android:id="@+id/btn_refresh"
+        android:id="@+id/menu_btn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginTop="6dp"
-        android:background="@drawable/refresh" />
+        android:layout_height="25dp"
+        android:layout_marginLeft="-35dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/left_titile" />
 
     <TextView
         android:id="@+id/txt_wb_title"
@@ -21,14 +23,26 @@
         android:layout_gravity="center"
         android:text="@string/login_user"
         android:textColor="@color/white"
-        android:textSize="25sp" />
+        android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/btn_writer"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:layout_marginTop="6dp"
-        android:background="@drawable/write" />
+        android:layout_height="wrap_content" >
 
+        <Button
+            android:id="@+id/btn_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/refresh" />
+
+        <Button
+            android:id="@+id/btn_writer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/title_new" />
+    </RelativeLayout>
 </FrameLayout>

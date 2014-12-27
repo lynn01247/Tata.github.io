@@ -3,7 +3,6 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:paddingTop="8dp"
     android:paddingBottom="8dp"
     android:paddingLeft="8dp"
     android:paddingRight="8dp" >
@@ -17,6 +16,7 @@
             android:id="@+id/content_head"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:contentDescription="@null"
             android:layout_alignParentLeft="true">
         </ImageView>
 
@@ -44,7 +44,8 @@
                 android:layout_toRightOf="@+id/content_user"
                 android:textColor="@color/oringe"
                 android:includeFontPadding="false"
-                android:textSize="10sp">
+                android:visibility="invisible"
+                android:textSize="12sp">
             </TextView>
 
             <TextView
@@ -87,6 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/content_text"
         android:layout_marginRight="5dp"
+        android:contentDescription="@null"
         android:layout_marginTop="3dp" >
     </ImageView>
 

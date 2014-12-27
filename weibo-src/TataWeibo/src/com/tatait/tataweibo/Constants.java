@@ -52,12 +52,14 @@ public class Constants {
      * 获得公共的微博 标记
      */
     public final static int GET_PUBLIC = 0;
+    public final static int GET_PUBLIC_REFLASH = 1;
+    public final static int GET_PUBLIC_LOADMORE = 2;
     /**
      * 获得关注的微博 标记
      */
-    public final static int GET_FRIENDS = 1;
+    public final static int GET_FRIENDS = 6;
     /**
      * 获得自己发的微博 标记
      */
-    public final static int GET_USER_TIMELINE = 2;
+    public final static int GET_USER_TIMELINE = 10;
 }
