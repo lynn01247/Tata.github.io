@@ -112,4 +112,8 @@ public class Constants {
      * 发布一条 图 文 微博信息
      */
     public final static String WEIBO_WRITER_TXT_IMG = WEIBO_WEBSITE+ "/statuses/upload.json";
+    
+    public static final String MENTIONS_SCHEMA ="devdiv://tata_profile_jing";
+	public static final String TRENDS_SCHEMA ="devdiv://tata_profile_at";
+	public static final String PARAM_UID ="uid";
 }

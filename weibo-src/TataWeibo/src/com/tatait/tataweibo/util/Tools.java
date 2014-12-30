@@ -266,7 +266,7 @@ public class Tools {
 		if (flag == 0) {
 			// 首次加载
 			page = 1;
-		} else if (flag == 1) {
+		} else if (flag == 2) {
 			// 获得主页数据--加载更多
 			++page;
 		}
@@ -302,6 +302,7 @@ public class Tools {
 					}
 				}
 			} else if (flag == 1) {
+				since_id = contentList.getFirst().getId();
 				HttpClient client = Tools.getInstance().httpClientInit();
 				List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 				params.add(new BasicNameValuePair("source", Constants.APP_KEY));
@@ -384,7 +385,7 @@ public class Tools {
 						contentInfo.setUserIcon(userIcon);
 						contentInfo.setContent_source(content_source);
 
-						if (flag == 2) {
+						if (flag == 1) {
 							// 将单条微博数据设置到集合前方
 							contentList.addFirst(contentInfo);
 						} else {

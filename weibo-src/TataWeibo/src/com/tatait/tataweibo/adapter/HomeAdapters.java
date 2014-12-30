@@ -19,6 +19,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.graphics.drawable.Drawable;
+import android.text.util.Linkify;
+import android.text.util.Linkify.MatchFilter;
+import android.text.util.Linkify.TransformFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +29,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.tatait.tataweibo.Constants;
 import com.tatait.tataweibo.HomeActivity;
 import com.tatait.tataweibo.R;
 import com.tatait.tataweibo.bean.ContentInfo;
@@ -94,6 +98,8 @@ public class HomeAdapters extends BaseAdapter {
 				.findViewById(R.id.content_image);
 		ch.content_text = (TextView) convertView
 				.findViewById(R.id.content_text);
+		//超链接处理
+//		extractMention2Link(ch.content_text);
 		ch.content_source = (TextView) convertView
 				.findViewById(R.id.content_source);
 		// 获得一条微博数据
@@ -159,5 +165,38 @@ public class HomeAdapters extends BaseAdapter {
 	@Override
 	public long getItemId(int position) {
 		return position;
+	}
+	/**
+	 * 超链接处理
+	 * 
+	 * @param v
+	 */
+	public static void extractMention2Link(TextView v) {
+		v.setAutoLinkMask(0);
+		Pattern mentionsPattern = Pattern.compile("@(\\w+?)(?=\\W|$)(.)");
+		String mentionsScheme = String.format("%s/?%s=",
+				Constants.MENTIONS_SCHEMA, Constants.PARAM_UID);
+		Linkify.addLinks(v, mentionsPattern, mentionsScheme, new MatchFilter() {
+			@Override
+			public boolean acceptMatch(CharSequence s, int start, int end) {
+				return s.charAt(end - 1) != '.';
+			}
+		}, new TransformFilter() {
+			@Override
+			public String transformUrl(Matcher match, String url) {
+				return match.group(1);
+			}
+		});
+		Pattern trendsPattern = Pattern.compile("#(\\w+?)#");
+		String trendsScheme = String.format("%s/?%s=", Constants.TRENDS_SCHEMA,
+				Constants.PARAM_UID);
+		Linkify.addLinks(v, trendsPattern, trendsScheme, null,
+				new TransformFilter() {
+					@Override
+					public String transformUrl(Matcher match, String url) {
+						return match.group(1);
+					}
+				});
+
 	}
 }

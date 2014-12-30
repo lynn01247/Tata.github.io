@@ -3,11 +3,16 @@ package com.tatait.tataweibo.drawLayout;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.text.util.Linkify;
+import android.text.util.Linkify.MatchFilter;
+import android.text.util.Linkify.TransformFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -104,9 +109,9 @@ public class MyFragment extends Fragment implements IXListViewListener {
 				((HomeActivity) getActivity()).openLeftLayout();
 				break;
 			case R.id.btn_writer:
-				startActivity(new Intent((HomeActivity)getActivity(), WriterWeiboActivity.class));
+				startActivity(new Intent((HomeActivity) getActivity(),
+						WriterWeiboActivity.class));
 				getActivity().finish();
-				Toast.makeText((HomeActivity) getActivity(),"new text", Toast.LENGTH_LONG).show();
 				break;
 			}
 		}

@@ -79,6 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/content_rela"
         android:textColor="@color/sblack"
+        android:autoLink="web|phone|email"
         android:textSize="20sp" >
     </TextView>
 

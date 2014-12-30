@@ -33,11 +33,10 @@
         <activity android:name=".UserInfoActivity" />
         <activity android:name=".MoreActivity" />
         <!-- writer -->
-        <activity android:name=".WriterWeiboActivity"
-        		 android:configChanges="keyboardHidden|orientation"
-                 android:screenOrientation="portrait" 
-        >
-        
+        <activity
+            android:name=".WriterWeiboActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait" >
         </activity>
         <!-- 必须注册：在微博授权，分享微博时候用到 -->
         <activity
@@ -45,6 +44,30 @@
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" >
+        </activity>
+        <activity android:name="MentionsActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="tata_profile_jing"
+                    android:scheme="devdiv" />
+            </intent-filter>
+        </activity>
+        <activity android:name="TrendsActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="tata_profile_at"
+                    android:scheme="devdiv" />
+            </intent-filter>
         </activity>
     </application>
     <!-- 获取权限 -->
@@ -57,7 +80,7 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <!-- 往SDCard写入数据权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--  相机权限 -->
-    <uses-permission  android:name="android.permission.READ_PHONE_STATE"/>
+    <!-- 相机权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
 </manifest>

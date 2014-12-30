@@ -139,7 +139,9 @@ public class HomeActivity extends FragmentActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		imageDialog.dismiss();
+		if(imageDialog!=null){
+			imageDialog.dismiss();
+		}
 	}
 	
 }

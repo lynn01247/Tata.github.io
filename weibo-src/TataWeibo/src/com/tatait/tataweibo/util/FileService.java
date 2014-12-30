@@ -52,7 +52,7 @@ public class FileService {
 		FileInputStream inStream;
 		if (Environment.getExternalStorageState().equals(
 				Environment.MEDIA_MOUNTED)) {
-			File file = new File(Environment.getExternalStorageDirectory(),
+			File file = new File(context.getExternalFilesDir(null),
 					filename);
 			inStream = new FileInputStream(file);
 		} else {
