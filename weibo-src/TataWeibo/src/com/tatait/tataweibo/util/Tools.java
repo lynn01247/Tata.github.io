@@ -8,6 +8,8 @@ import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,6 +22,7 @@ import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
 import org.apache.commons.httpclient.params.HttpMethodParams;
@@ -29,13 +32,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
 import android.widget.TextView;
@@ -45,8 +55,8 @@ import com.tatait.tataweibo.Constants;
 import com.tatait.tataweibo.LoadActivity;
 import com.tatait.tataweibo.LoadActivity.UserSession;
 import com.tatait.tataweibo.R;
-import com.tatait.tataweibo.pojo.ContentInfo;
-import com.tatait.tataweibo.pojo.UserInfo;
+import com.tatait.tataweibo.bean.ContentInfo;
+import com.tatait.tataweibo.bean.UserInfo;
 
 /**
  * 工具类
@@ -59,7 +69,6 @@ public class Tools {
 	private MultiThreadedHttpConnectionManager connectionManager;
 	private static Tools instance = null;
 	LinkedList<ContentInfo> contentList = null;
-	private UserInfo user = null;
 	private FileService file;
 	int page;
 
@@ -180,9 +189,7 @@ public class Tools {
 	 * 
 	 * @param url
 	 *            拼接好参数的URL
-	 * @param token
 	 * @param params
-	 * @return=
 	 */
 	public Response get(HttpClient client, String url,
 			List<BasicNameValuePair> params) {
@@ -201,6 +208,26 @@ public class Tools {
 		GetMethod getmethod = new GetMethod(getPath);
 		return httpRequest(client, getmethod);
 
+	}
+
+	/**
+	 * 处理http post请求
+	 */
+	public Response post(HttpClient client, String url,
+			List<BasicNameValuePair> params) {
+		PostMethod postMethod = new PostMethod(url);
+		for (int i = 0; i < params.size(); i++) {
+			BasicNameValuePair nameValuePair = (BasicNameValuePair) params
+					.get(i);
+			if (!"".equals(nameValuePair.getName())
+					&& nameValuePair.getName() != null) {
+				postMethod.addParameter(nameValuePair.getName(),
+						nameValuePair.getValue());
+			}
+		}
+		HttpMethodParams param = postMethod.getParams();
+		param.setContentCharset("UTF-8");
+		return httpRequest(client, postMethod);
 	}
 
 	/**
@@ -247,8 +274,6 @@ public class Tools {
 		String count = "5";
 		String jsonString = "";
 		if (UserSession.nowUser != null) {
-			// 获得当前用户对象
-			user = UserSession.nowUser;
 			if (flag == 0) {
 				// 首次加载
 				if (file.dataExpired()) {
@@ -375,4 +400,111 @@ public class Tools {
 		return contentList;
 	}
 
+	/**
+	 * 
+	 * @param params
+	 * @param flag
+	 *            1 txt 2txt_image
+	 * @param mAccessToken
+	 * @return
+	 */
+	public boolean writerWeibo(List<BasicNameValuePair> params, int flag,
+			Oauth2AccessToken mAccessToken) {
+		boolean status = true;
+		String url = "";
+		params.add(new BasicNameValuePair("source", Constants.APP_KEY));
+		params.add(new BasicNameValuePair("access_token", mAccessToken
+				.getToken()));
+		switch (flag) {
+		case 1:
+			url = Constants.WEIBO_WRITER_TXT;
+			break;
+		case 2:
+			url = Constants.WEIBO_WRITER_TXT_IMG;
+			break;
+		}
+
+		HttpClient client = Tools.getInstance().httpClientInit();
+		Tools.getInstance().post(client, url, params);
+		return status;
+	}
+
+	/**
+	 * 使用当前时间戳拼接一个唯一的文件名
+	 * 
+	 * @param format
+	 * @return
+	 */
+	public static String getFileName() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss_SS");
+		return format.format(new Timestamp(System.currentTimeMillis()));
+	}
+
+	/**
+	 * 获取照相机使用的目录
+	 * 
+	 * @return
+	 */
+	public static String getCamerPath() {
+		return Environment.getExternalStoragePublicDirectory(
+				Environment.DIRECTORY_DCIM).toString();
+	}
+
+	/**
+	 * 获取SD卡中最新图片路径
+	 * 
+	 * @return
+	 */
+	public static String getLatestImage(Activity activity) {
+		String latestImage = null;
+		String[] items = { MediaStore.Images.Media._ID,
+				MediaStore.Images.Media.DATA };
+		Cursor cursor = activity.managedQuery(
+				MediaStore.Images.Media.EXTERNAL_CONTENT_URI, items, null,
+				null, MediaStore.Images.Media._ID + " desc");
+
+		if (cursor != null && cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor
+					.moveToNext()) {
+				latestImage = cursor.getString(1);
+				break;
+			}
+		}
+
+		return latestImage;
+	}
+
+	/**
+	 * 根据路径获取适应屏幕大小的Bitmap
+	 * 
+	 * @param context
+	 * @param filePath
+	 * @param maxWidth
+	 * @return
+	 */
+	public static Bitmap getScaleBitmap(Context context, String filePath) {
+		BitmapFactory.Options opts = new BitmapFactory.Options();
+		opts.inSampleSize = 4;
+
+		return BitmapFactory.decodeFile(filePath, opts);
+	}
+
+	/**
+	 * 根据Uri获得图片的绝对路径
+	 * 
+	 * @param uri
+	 * @return String[]{imgNo,imgPath,imgName,imgSize}
+	 */
+	public static String[] getAbsoluteImagePath(Activity activity, Uri uri) {
+
+		Cursor cursor = activity.getContentResolver().query(uri, null, null,
+				null, null);
+		cursor.moveToFirst();
+		String imgNo = cursor.getString(0); // 图片编号
+		String imgPath = cursor.getString(1); // 图片文件路径
+		String imgSize = cursor.getString(2); // 图片大小
+		String imgName = cursor.getString(3); // 图片文件名
+		return new String[] { imgNo, imgPath, imgName, imgSize };
+	}
 }

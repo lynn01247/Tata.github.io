@@ -1,9 +1,9 @@
 package com.tatait.tataweibo;
 
+import android.app.AlertDialog;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.RadioGroup;
@@ -33,15 +33,15 @@ public class MainActivity extends TabActivity {
 		th.addTab(th.newTabSpec("TAB_MSG").setIndicator("TAB_MSG")
 				.setContent(new Intent(this, MsgActivity.class)));
 		th.addTab(th.newTabSpec("TAB_USER_INFO").setIndicator("TAB_USER_INFO")
-				.setContent(new Intent(this, MsgActivity.class)));
+				.setContent(new Intent(this, UserInfoActivity.class)));
 		th.addTab(th.newTabSpec("TAB_SEARCH").setIndicator("TAB_SEARCH")
 				.setContent(new Intent(this, MsgActivity.class)));
 		th.addTab(th.newTabSpec("TAB_MORE").setIndicator("TAB_MORE")
-				.setContent(new Intent(this, MsgActivity.class)));
+				.setContent(new Intent(this, MoreActivity.class)));
 		RadioGroup mainGroup = (RadioGroup) this.findViewById(R.id.main_radio);
-		
+
 		mainGroup.check(R.id.radio_button0);
-		
+
 		mainGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup arg0, int rid) {
@@ -69,6 +69,7 @@ public class MainActivity extends TabActivity {
 					th.setCurrentTabByTag("TAB_MORE");
 				}
 			}
+
 		});
 	}
 }

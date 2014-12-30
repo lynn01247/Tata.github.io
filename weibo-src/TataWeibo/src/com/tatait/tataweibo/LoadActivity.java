@@ -14,8 +14,8 @@ import android.view.animation.Animation.AnimationListener;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.tatait.tataweibo.bean.UserInfo;
 import com.tatait.tataweibo.dao.UserDao;
-import com.tatait.tataweibo.pojo.UserInfo;
 import com.tatait.tataweibo.util.Tools;
 /**
  * 加载logo页面

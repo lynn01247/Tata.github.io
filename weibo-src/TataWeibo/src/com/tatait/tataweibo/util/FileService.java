@@ -148,4 +148,17 @@ public class FileService {
 			public_line_info_file.delete();
 		}
 	}
+	
+	/**
+     * 获取文件获得后缀名
+     * @param fileName
+     * @return
+     */
+    public static String getFileFormat(String fileName) {
+        if (fileName == null || fileName == "") {
+            return "";
+        }
+        int point = fileName.lastIndexOf('.');
+        return fileName.substring(point + 1);
+    }
 }

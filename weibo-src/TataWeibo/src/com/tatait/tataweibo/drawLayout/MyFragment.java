@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -23,11 +24,12 @@ import com.tatait.tataweibo.Constants;
 import com.tatait.tataweibo.HomeActivity;
 import com.tatait.tataweibo.LoadActivity.UserSession;
 import com.tatait.tataweibo.R;
+import com.tatait.tataweibo.WriterWeiboActivity;
 import com.tatait.tataweibo.XListView.XListView;
 import com.tatait.tataweibo.XListView.XListView.IXListViewListener;
 import com.tatait.tataweibo.adapter.HomeAdapters;
-import com.tatait.tataweibo.pojo.ContentInfo;
-import com.tatait.tataweibo.pojo.UserInfo;
+import com.tatait.tataweibo.bean.ContentInfo;
+import com.tatait.tataweibo.bean.UserInfo;
 import com.tatait.tataweibo.util.DateUtils;
 import com.tatait.tataweibo.util.FileService;
 import com.tatait.tataweibo.util.Tools;
@@ -100,6 +102,11 @@ public class MyFragment extends Fragment implements IXListViewListener {
 				break;
 			case R.id.menu_btn:
 				((HomeActivity) getActivity()).openLeftLayout();
+				break;
+			case R.id.btn_writer:
+				startActivity(new Intent((HomeActivity)getActivity(), WriterWeiboActivity.class));
+				getActivity().finish();
+				Toast.makeText((HomeActivity) getActivity(),"new text", Toast.LENGTH_LONG).show();
 				break;
 			}
 		}

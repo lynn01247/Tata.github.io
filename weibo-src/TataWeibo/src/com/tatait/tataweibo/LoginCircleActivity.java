@@ -14,9 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tatait.tataweibo.LoadActivity.UserSession;
+import com.tatait.tataweibo.bean.UserInfo;
 import com.tatait.tataweibo.circular.CircularImage;
 import com.tatait.tataweibo.dao.UserDao;
-import com.tatait.tataweibo.pojo.UserInfo;
 
 /**
  * 登陆界面

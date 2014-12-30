@@ -10,6 +10,18 @@
     <string name="login">登录</string>
     <string name="add_user">增加用户</string>
     <string name="login_user">登陆用户</string>
+    <string name="reflashHome">当前没有数据，请重新刷新页面</string>
+    <string name="new_writer">说点什么吧？</string>
+    <string name="add_pic">添加图片</string>
+    <string name="user_info">个人资料</string>
+    <string name="text_num">140</string>
+    <string name="menu_friends_timeline">我关注</string>
+    <string name="menu_user_timeline">我发的</string>
+    <string name="menu_comments_by_me">我评论</string>
+    <string name="menu_comments_to_me">评论我</string>
+    <string name="menu_userinfo_show">资料</string>
+    <string name="menu_end_session">退出</string>
+    <string name="more_text">更多设置请点击菜单按钮</string>
     <string name="exit">退出</string>
     <string name="dateFlash">数据已刷新</string>
     <string name="quit">再按一次退出程序</string>
@@ -38,4 +50,7 @@
     <string name="xlistview_header_last_time">上次更新时间：</string>
     <string name="xlistview_footer_hint_normal">查看更多</string>
     <string name="xlistview_footer_hint_ready">松开载入更多</string>
+    
+    <string name="send_sucess">发表成功！</string>
+    <string name="send_failed">发表失败！</string>
 </resources>

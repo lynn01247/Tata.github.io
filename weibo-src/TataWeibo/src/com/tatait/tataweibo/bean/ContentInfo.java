@@ -1,4 +1,4 @@
-package com.tatait.tataweibo.pojo;
+package com.tatait.tataweibo.bean;
 /**
  * 微博内容
  * @author WSXL

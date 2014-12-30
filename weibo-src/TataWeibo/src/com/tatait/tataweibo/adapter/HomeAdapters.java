@@ -28,7 +28,7 @@ import android.widget.TextView;
 
 import com.tatait.tataweibo.HomeActivity;
 import com.tatait.tataweibo.R;
-import com.tatait.tataweibo.pojo.ContentInfo;
+import com.tatait.tataweibo.bean.ContentInfo;
 import com.tatait.tataweibo.util.AsyncImageLoader;
 import com.tatait.tataweibo.util.AsyncImageLoader.ImageCallback;
 
@@ -124,7 +124,7 @@ public class HomeAdapters extends BaseAdapter {
 							}
 						});
 				if (content_image == null) {
-					ch.content_image.setImageResource(R.drawable.info_icon);
+					ch.content_image.setImageResource(R.drawable.picture_dark);
 				} else {
 					ch.content_image.setImageDrawable(content_image);
 				}
@@ -138,7 +138,7 @@ public class HomeAdapters extends BaseAdapter {
 						}
 					});
 			if (cachedImage == null) {
-				ch.content_icon.setImageResource(R.drawable.angel);
+				ch.content_icon.setImageResource(R.drawable.people);
 			} else {
 				ch.content_icon.setImageDrawable(cachedImage);
 			}

@@ -13,9 +13,9 @@ import android.graphics.Bitmap.CompressFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
+import com.tatait.tataweibo.bean.UserInfo;
 import com.tatait.tataweibo.db.DBHelper;
 import com.tatait.tataweibo.db.DBInfo;
-import com.tatait.tataweibo.pojo.UserInfo;
 /**
  * 数据库dao
  * @author WSXL

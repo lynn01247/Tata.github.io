@@ -24,8 +24,8 @@ import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.openapi.models.User;
+import com.tatait.tataweibo.bean.UserInfo;
 import com.tatait.tataweibo.dao.UserDao;
-import com.tatait.tataweibo.pojo.UserInfo;
 import com.tatait.tataweibo.util.Response;
 import com.tatait.tataweibo.util.Tools;
 
@@ -172,10 +172,17 @@ public class OAuthActivity extends Activity {
 		User user = User.parse(response);
 		if (user != null) {
 			userInfo.setUser_id(user.id);
+			userInfo.setScreen_name(user.screen_name);
+			userInfo.setGender(user.gender);
 			userInfo.setUser_name(user.name);
 			userInfo.setToken(mAccessToken.getToken());
 			userInfo.setToken_secret(mAccessToken.getUid());
 			userInfo.setDescription(user.description);
+			userInfo.setLocation(user.location);
+			userInfo.setFavourites_count(Integer.valueOf(user.favourites_count).toString());
+			userInfo.setFollowers_count(Integer.valueOf(user.followers_count).toString());
+			userInfo.setFriends_count(Integer.valueOf(user.friends_count).toString());
+			userInfo.setStatuses_count(Integer.valueOf(user.statuses_count).toString());
 			userInfo.setUser_head(Tools
 					.getDrawableFromUrl(user.profile_image_url));
 			UserDao dao = new UserDao(OAuthActivity.this);

@@ -28,7 +28,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@android:color/transparent"
-        android:paddingTop="40dp" >
+        android:paddingTop="38dp" >
     </RelativeLayout>
     <!-- 右侧滑动栏 -->
 
@@ -38,7 +38,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="end"
         android:background="@android:color/transparent"
-        android:paddingTop="50dp" >
+        android:paddingTop="38dp" >
     </RelativeLayout>
 
 </android.support.v4.widget.DrawerLayout>

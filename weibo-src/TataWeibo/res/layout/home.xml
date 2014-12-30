@@ -9,8 +9,7 @@
 
     <include
         android:id="@+id/layout_title_bar"
-        layout="@layout/tilte_bar" />
-
+        layout="@layout/home_tilte_bar" />
     <!-- 加载进度条 -->
 
     <include
@@ -20,6 +19,7 @@
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="1dp"
+        android:contentDescription="@null"
         android:src="@drawable/load" />
 
     <com.tatait.tataweibo.XListView.XListView
