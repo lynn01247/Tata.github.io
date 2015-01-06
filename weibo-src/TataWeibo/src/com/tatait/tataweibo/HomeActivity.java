@@ -2,6 +2,7 @@ package com.tatait.tataweibo;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
@@ -13,7 +14,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.tatait.tataweibo.LoadActivity.UserSession;
 import com.tatait.tataweibo.bean.UserInfo;
 import com.tatait.tataweibo.drawLayout.MyFragment;
@@ -34,7 +37,7 @@ public class HomeActivity extends FragmentActivity {
 	CharSequence[] items = Constants.home_items;
 	AlertDialog imageDialog;
 	boolean isShown = false;
-
+	private Oauth2AccessToken mAccessToken;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -112,11 +115,17 @@ public class HomeActivity extends FragmentActivity {
 						.setItems(items, new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int item) {
 								if (item == 0) {
-
+									Toast.makeText(HomeActivity.this,"功能待开发...", Toast.LENGTH_LONG)
+									.show();
 								} else if (item == 1) {
-
+									AccessTokenKeeper.clear(getApplicationContext());
+									mAccessToken = new Oauth2AccessToken();
+									Toast.makeText(HomeActivity.this,"已注销", Toast.LENGTH_LONG)
+									.show();
+									goOAuth();
 								} else if (item == 2) {
-
+									Toast.makeText(HomeActivity.this,"功能待开发...", Toast.LENGTH_LONG)
+									.show();
 								}
 							}
 						}).create();
@@ -142,6 +151,12 @@ public class HomeActivity extends FragmentActivity {
 		if(imageDialog!=null){
 			imageDialog.dismiss();
 		}
+	}
+
+	public void goOAuth() {
+		Intent intent = new Intent(this,OAuthActivity.class);
+		startActivity(intent);
+		finish();
 	}
 	
 }

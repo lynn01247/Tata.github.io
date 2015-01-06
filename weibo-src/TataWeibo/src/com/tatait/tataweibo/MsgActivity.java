@@ -14,9 +14,9 @@ public class MsgActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		Log.i("pro", "MsgActivity-----------onCreate");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.msg);
+
 	}
 
 }

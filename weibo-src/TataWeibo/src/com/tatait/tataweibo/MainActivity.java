@@ -1,17 +1,20 @@
 package com.tatait.tataweibo;
 
-import android.app.AlertDialog;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 public class MainActivity extends TabActivity {
 	public View msgTitle;// 信息头部按钮
+	CharSequence[] items = Constants.beautiful_items;
 
 	@Override
 	protected void onStart() {
@@ -34,8 +37,10 @@ public class MainActivity extends TabActivity {
 				.setContent(new Intent(this, MsgActivity.class)));
 		th.addTab(th.newTabSpec("TAB_USER_INFO").setIndicator("TAB_USER_INFO")
 				.setContent(new Intent(this, UserInfoActivity.class)));
+
 		th.addTab(th.newTabSpec("TAB_SEARCH").setIndicator("TAB_SEARCH")
-				.setContent(new Intent(this, MsgActivity.class)));
+				.setContent(new Intent(this, MusicPlay.class)));
+
 		th.addTab(th.newTabSpec("TAB_MORE").setIndicator("TAB_MORE")
 				.setContent(new Intent(this, MoreActivity.class)));
 		RadioGroup mainGroup = (RadioGroup) this.findViewById(R.id.main_radio);
@@ -60,16 +65,53 @@ public class MainActivity extends TabActivity {
 					th.setCurrentTabByTag("TAB_USER_INFO");
 					msgTitle.setVisibility(View.GONE);
 					break;
+
 				case R.id.radio_button3:// 搜索
 					th.setCurrentTabByTag("TAB_SEARCH");
 					msgTitle.setVisibility(View.GONE);
 					break;
+
 				case R.id.radio_button4:// 更多
 					msgTitle.setVisibility(View.GONE);
 					th.setCurrentTabByTag("TAB_MORE");
 				}
 			}
 
+		});
+
+		Button left = (Button) findViewById(R.id.bt_group_left);
+		Button middle = (Button) findViewById(R.id.bt_group_middle);
+		Button right = (Button) findViewById(R.id.bt_group_right);
+
+		left.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(
+						MainActivity.this,
+						"@我之名言："
+								+ items[(int) (Math.random() * items.length)]
+										.toString(), Toast.LENGTH_LONG).show();
+			}
+		});
+		middle.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(
+						MainActivity.this,
+						"评论之名言："
+								+ items[(int) (Math.random() * items.length)]
+										.toString(), Toast.LENGTH_LONG).show();
+			}
+		});
+		right.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(
+						MainActivity.this,
+						"私信之名言："
+								+ items[(int) (Math.random() * items.length)]
+										.toString(), Toast.LENGTH_LONG).show();
+			}
 		});
 	}
 }

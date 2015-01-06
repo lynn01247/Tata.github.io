@@ -13,15 +13,17 @@
     <string name="reflashHome">当前没有数据，请重新刷新页面</string>
     <string name="new_writer">说点什么吧？</string>
     <string name="add_pic">添加图片</string>
+    <string name="home_left_text">个人资料展示</string>
     <string name="user_info">个人资料</string>
     <string name="text_num">140</string>
-    <string name="menu_friends_timeline">我关注</string>
-    <string name="menu_user_timeline">我发的</string>
-    <string name="menu_comments_by_me">我评论</string>
-    <string name="menu_comments_to_me">评论我</string>
-    <string name="menu_userinfo_show">资料</string>
+    <string name="shuoming">Its a MSG tab page!</string>
+    <string name="menu_friends_timeline">鸡汤名言随机一</string>
+    <string name="menu_user_timeline">鸡汤名言随机二</string>
+    <string name="menu_comments_by_me">鸡汤名言随机三</string>
+    <string name="menu_comments_to_me">鸡汤名言随机四</string>
+    <string name="menu_userinfo_show">鸡汤名言随机五</string>
     <string name="menu_end_session">退出</string>
-    <string name="more_text">更多设置请点击菜单按钮</string>
+    <string name="more_text">请点击菜单按钮显示另类菜单样式</string>
     <string name="exit">退出</string>
     <string name="dateFlash">数据已刷新</string>
     <string name="quit">再按一次退出程序</string>
@@ -40,8 +42,9 @@
     <string name="main_home">首页</string>
     <string name="main_news">信息</string>
     <string name="main_my_info">我的资料</string>
-    <string name="menu_search">搜索</string>
+    <string name="menu_search">音乐</string>
     <string name="more">更多</string>
+    <string name="list2">区分首页菜单</string>
     <string name="open">open</string>
     <string name="close">close</string>
     <string name="loading">正在加载...</string>
@@ -53,4 +56,12 @@
     
     <string name="send_sucess">发表成功！</string>
     <string name="send_failed">发表失败！</string>
+    
+    <string name="song_list">歌曲列表</string>
+    <string name="default_text">她他音乐，音乐你我TA</string>
+    <string name="song_time">00:00</string>
+    <string name="song_style">播放模式</string>
+    <string name="single_repeat">单曲循环</string>
+    <string name="list_repeat">列表循环</string>
+    <string name="random_style">随机模式</string>
 </resources>

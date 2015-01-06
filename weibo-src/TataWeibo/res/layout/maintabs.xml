@@ -108,7 +108,7 @@
                 android:id="@+id/radio_button3"
                 style="@style/main_tab_bottom"
                 android:layout_marginTop="2.0dip"
-                android:drawableTop="@drawable/icon_4_n"
+                android:drawableTop="@drawable/play_button_press"
                 android:tag="radio_button3"
                 android:text="@string/menu_search" />
 
@@ -118,7 +118,7 @@
                 android:layout_marginTop="2.0dip"
                 android:drawableTop="@drawable/icon_5_n"
                 android:tag="radio_button4"
-                android:text="@string/more" />
+                android:text="@string/list2" />
         </RadioGroup>
     </LinearLayout>
 

@@ -4,9 +4,17 @@
     android:layout_height="match_parent"
     android:background="#b7ba6b"
     android:orientation="vertical" >
-
+	<TextView
+        android:id="@+id/home_menu_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/home_left_text"
+        android:textColor="#694d9f"
+        android:textSize="25sp" />
     <ImageView
         android:id="@+id/home_left_menu_image"
+        android:layout_below="@+id/home_menu_text"
         android:layout_width="82dp"
         android:layout_height="82dp"
         android:layout_marginLeft="20dp"
@@ -50,6 +58,7 @@
             android:textColor="@color/sblack"
             android:textSize="12sp" />
     </RelativeLayout>
+    
 	<ImageView
         android:id="@+id/home_menu_image"
         android:layout_below="@+id/RelativeLayout"

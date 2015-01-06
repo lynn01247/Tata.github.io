@@ -13,7 +13,7 @@ import com.tatait.tataweibo.bean.UserInfo;
 public class UserInfoActivity extends Activity {
 	String weiboId = null;
 	private ImageView userInfo_image;
-	private ImageView userInfo_icon;
+	private TextView userInfo_icon;
 	private TextView userInfo_userName;
 	private TextView userInfo_address;
 	private TextView userInfo_loginName;
@@ -38,7 +38,7 @@ public class UserInfoActivity extends Activity {
 	private void init() {
 		UserInfo user = UserSession.nowUser;
 		userInfo_image = (ImageView) findViewById(R.id.userinfo_image);
-		userInfo_icon = (ImageView) findViewById(R.id.userinfo_icon);
+		userInfo_icon = (TextView) findViewById(R.id.userinfo_icon);
 		userInfo_userName = (TextView) findViewById(R.id.userinfo_username);
 		userInfo_address = (TextView) findViewById(R.id.userinfo_address);
 		userInfo_loginName = (TextView) findViewById(R.id.userinfo_loginName);
@@ -50,9 +50,11 @@ public class UserInfoActivity extends Activity {
 		/** 给控件赋值 */
 		userInfo_image.setImageDrawable(user.getUser_head());
 		if ("m".equalsIgnoreCase(user.getGender())) {
-			userInfo_icon.setImageResource(R.drawable.icon_male);
-		} else {
-			userInfo_icon.setImageResource(R.drawable.icon_female);
+			userInfo_icon.setText("女");
+		} else if ("f".equalsIgnoreCase(user.getGender())) {
+			userInfo_icon.setText("男");
+		}else{
+			userInfo_icon.setText("");
 		}
 		userInfo_userName.setText(user.getScreen_name());
 		userInfo_address.setText("地址：" + user.getLocation());

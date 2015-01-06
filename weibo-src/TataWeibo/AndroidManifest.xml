@@ -69,6 +69,10 @@
                     android:scheme="devdiv" />
             </intent-filter>
         </activity>
+        <activity android:name=".MusicPlay" >
+        </activity>
+        <service android:name="com.tatait.tataweibo.service.MusicService" >
+        </service>
     </application>
     <!-- 获取权限 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

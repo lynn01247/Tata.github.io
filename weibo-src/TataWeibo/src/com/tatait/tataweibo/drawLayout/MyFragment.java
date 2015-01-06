@@ -27,6 +27,7 @@ import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.tatait.tataweibo.AccessTokenKeeper;
 import com.tatait.tataweibo.Constants;
 import com.tatait.tataweibo.HomeActivity;
+import com.tatait.tataweibo.MoreActivity;
 import com.tatait.tataweibo.LoadActivity.UserSession;
 import com.tatait.tataweibo.R;
 import com.tatait.tataweibo.WriterWeiboActivity;
@@ -168,12 +169,14 @@ public class MyFragment extends Fragment implements IXListViewListener {
 					if (obj != null) {
 						// 获得一条weibo数据的id（唯一标识）
 						String weiboId = obj.toString();
+						Toast.makeText((HomeActivity) getActivity(), "选择了ID为："+weiboId+"的记录。", Toast.LENGTH_LONG)
+						.show();
 						// 跳转到一条具体的微博显示页面
 						// Intent intent = new
 						// Intent(HomeActivity.this,ContentActivity.class);
-						Bundle bundle = new Bundle();
+//						Bundle bundle = new Bundle();
 						// 参数的设置
-						bundle.putString("weiboId", weiboId);
+//						bundle.putString("weiboId", weiboId);
 						// 参数绑定
 						// intent.putExtras(bundle);
 						// startActivity(intent);

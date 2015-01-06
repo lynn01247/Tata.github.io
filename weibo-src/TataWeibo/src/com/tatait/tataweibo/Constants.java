@@ -66,7 +66,7 @@ public class Constants {
      * 图片来源选择菜单
      */
     public final static CharSequence[] meun_items = { "相册", "拍照", "清除图片"};
-    public final static CharSequence[] home_items = { "设置", "注销", "关于", "退出", "返回"};
+    public final static CharSequence[] home_items = { "设置", "注销", "关于", "返回"};
     public final static CharSequence[] beautiful_items = {
     	"久坐不益健康，出来走几步。", 
     	"激情工作，快乐生活。",

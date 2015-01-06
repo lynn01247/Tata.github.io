@@ -21,6 +21,10 @@ public class AccessTokenKeeper {
     
     private static final String LOAD = "tatait_load";
     private static final String LOADVILABLE = "true";
+    
+    private static final String MUSIC = "tatait_music";
+    private static final String MUSICINIT = "no";
+    private static final String MUSICVILABLE = "true";
     /**
      * 保存 Token 对象到 SharedPreferences。
      * 
@@ -103,5 +107,36 @@ public class AccessTokenKeeper {
         }
         SharedPreferences pref = context.getSharedPreferences(LOAD, Context.MODE_APPEND);
         return pref.getBoolean(LOADVILABLE, false);
+    }
+    
+    /**
+     * 保存 是否后台播放音乐。
+     * 
+     * @param context 应用程序上下文环境
+     * @param flag 是否后台播放音乐
+     */
+    public static void writeMusic(Context context,boolean flag) {
+        if (null == context) {
+            return;
+        }
+        SharedPreferences pref = context.getSharedPreferences(MUSIC, Context.MODE_APPEND);
+        Editor editor = pref.edit();
+        editor.putString(MUSICINIT, "yes");
+        editor.putBoolean(MUSICVILABLE, flag);
+        editor.commit();
+    }
+    /**
+     * 从 SharedPreferences 是否后台播放音乐
+     * 
+     * @param context 应用程序上下文环境
+     * 
+     * @return true/false
+     */
+    public static boolean readMusic(Context context) {
+        if (null == context) {
+            return true;
+        }
+        SharedPreferences pref = context.getSharedPreferences(MUSIC, Context.MODE_APPEND);
+        return pref.getBoolean(MUSICVILABLE, false);
     }
 }

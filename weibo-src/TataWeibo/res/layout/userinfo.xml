@@ -9,22 +9,21 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_btn_nor"
-        android:gravity="center"
         android:orientation="horizontal" >
 
         <ImageButton
             android:id="@+id/status_return_weibo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@null"
-            android:layout_marginLeft="10dip"
             android:background="@drawable/btn_title_return_style"
-            android:gravity="center" />
+            android:contentDescription="@null" />
 
         <LinearLayout
-            android:layout_width="200dip"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginLeft="-30dp"
             android:orientation="horizontal" >
 
             <TextView
@@ -38,15 +37,6 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/status_refresh_weibo"
-            android:contentDescription="@null"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dip"
-            android:background="@drawable/status_refresh_style"
-            android:gravity="center" />
     </LinearLayout>
 
     <LinearLayout
@@ -60,11 +50,11 @@
 
         <ImageView
             android:id="@+id/userinfo_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dip"
             android:contentDescription="@null"
-            android:src="@drawable/angel"
-            android:layout_marginLeft="10dip" />
+            android:src="@drawable/angel" />
 
         <TextView
             android:id="@+id/userinfo_username"
@@ -74,15 +64,14 @@
             android:gravity="center"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:width="220dip" />
+            android:width="200dip" />
 
-        <ImageView
+        <TextView
             android:id="@+id/userinfo_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@null"
-            android:layout_marginLeft="5dip"
-            android:layout_marginRight="10dip" />
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dip"/>
     </LinearLayout>
 
     <LinearLayout
@@ -178,4 +167,5 @@
                 android:textColor="@color/black" />
         </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>

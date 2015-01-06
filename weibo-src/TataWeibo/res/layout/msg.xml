@@ -7,14 +7,21 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@color/sblue"
-    tools:context="com.tatait.tataweibo.LoadActivity" >
+    android:background="@color/sblue">
 
     <TextView 
         android:id="@+id/textview"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/shuoming"
+        android:layout_centerHorizontal="true"
+        />
+	<ImageView
+        android:id="@+id/imageview"
+        android:layout_below="@+id/textview"
         android:layout_height="fill_parent"
         android:layout_width="fill_parent"
-        android:text="msg"
+        android:contentDescription="@null"
+        android:src="@drawable/page1"
         />
-
 </RelativeLayout>
