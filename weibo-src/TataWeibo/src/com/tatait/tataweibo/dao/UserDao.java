@@ -26,7 +26,9 @@ public class UserDao {
 	private SQLiteDatabase db = null;
 
 	private String[] columns = { DBInfo.Table._ID,DBInfo.Table.USER_ID,DBInfo.Table.USER_NAME,DBInfo.Table.TOKEN,
-			DBInfo.Table.TOKEN_SECRET,DBInfo.Table.DESCRIPTION,DBInfo.Table.USER_HEAD };
+			DBInfo.Table.TOKEN_SECRET,DBInfo.Table.DESCRIPTION,DBInfo.Table.USER_HEAD,DBInfo.Table.LOCATION
+			,DBInfo.Table.GENDER,DBInfo.Table.FAVOURITES_COUNT,DBInfo.Table.FOLLOWERS_COUNT,DBInfo.Table.FRIENDS_COUNT
+			,DBInfo.Table.STATUSES_COUNT};
 	public UserDao(Context context) {
 		dbHelper = new DBHelper(context);
 	}
@@ -41,6 +43,12 @@ public class UserDao {
 		values.put(DBInfo.Table.TOKEN, user.getToken());
 		values.put(DBInfo.Table.TOKEN_SECRET, user.getToken_secret());
 		values.put(DBInfo.Table.DESCRIPTION, user.getDescription());
+		values.put(DBInfo.Table.LOCATION, user.getLocation());
+		values.put(DBInfo.Table.GENDER, user.getGender());
+		values.put(DBInfo.Table.FAVOURITES_COUNT, user.getFavourites_count());
+		values.put(DBInfo.Table.FOLLOWERS_COUNT, user.getFollowers_count());
+		values.put(DBInfo.Table.FRIENDS_COUNT, user.getFriends_count());
+		values.put(DBInfo.Table.STATUSES_COUNT, user.getStatuses_count());
 		//将图片类型的数据进行转换再存储到BLOB类型中
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
 		BitmapDrawable drawable= (BitmapDrawable)user.getUser_head();
@@ -91,6 +99,12 @@ public class UserDao {
 				ByteArrayInputStream is = new ByteArrayInputStream(btyeHead);
 				Drawable user_head = Drawable.createFromStream(is, "headImage");
 				user.setUser_head(user_head);
+				user.setLocation(cursor.getString(cursor.getColumnIndex(DBInfo.Table.LOCATION)));
+				user.setGender(cursor.getString(cursor.getColumnIndex(DBInfo.Table.GENDER)));
+				user.setFavourites_count(cursor.getString(cursor.getColumnIndex(DBInfo.Table.FAVOURITES_COUNT)));
+				user.setFollowers_count(cursor.getString(cursor.getColumnIndex(DBInfo.Table.FOLLOWERS_COUNT)));
+				user.setFriends_count(cursor.getString(cursor.getColumnIndex(DBInfo.Table.FRIENDS_COUNT)));
+				user.setStatuses_count(cursor.getString(cursor.getColumnIndex(DBInfo.Table.STATUSES_COUNT)));
 				
 				userList.add(user);
 			}

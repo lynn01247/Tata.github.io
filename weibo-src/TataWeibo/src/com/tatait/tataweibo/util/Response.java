@@ -20,7 +20,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import com.sina.weibo.sdk.exception.WeiboException;
-import com.tatait.tataweibo.Constants;
+import com.tatait.tataweibo.bean.Constants;
 
 /**
  * representing HTTP Response

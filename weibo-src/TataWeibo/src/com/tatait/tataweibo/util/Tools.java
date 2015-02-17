@@ -33,6 +33,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -51,12 +53,12 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
-import com.tatait.tataweibo.Constants;
-import com.tatait.tataweibo.LoadActivity;
-import com.tatait.tataweibo.LoadActivity.UserSession;
+import com.tatait.tataweibo.MainActivity;
+import com.tatait.tataweibo.MainActivity.UserSession;
 import com.tatait.tataweibo.R;
+import com.tatait.tataweibo.bean.Constants;
 import com.tatait.tataweibo.bean.ContentInfo;
-import com.tatait.tataweibo.bean.UserInfo;
+import com.tatait.tataweibo.util.file.FileService;
 
 /**
  * 工具类
@@ -68,7 +70,7 @@ public class Tools {
 	private static final String TAG = "Tools";
 	private MultiThreadedHttpConnectionManager connectionManager;
 	private static Tools instance = null;
-	LinkedList<ContentInfo> contentList = null;
+	public LinkedList<ContentInfo> contentList = null;
 	private FileService file;
 	int page;
 
@@ -103,42 +105,23 @@ public class Tools {
 	/**
 	 * 检测网络状态
 	 * 
-	 * @param loadActivity
+	 * @param mainActivity
+	 * @return 
 	 */
-	public static void checkNetwork(final LoadActivity loadActivity) {
-		ConnectivityManager manager = (ConnectivityManager) loadActivity
+	public static boolean checkNetwork(final MainActivity mainActivity) {
+		ConnectivityManager manager = (ConnectivityManager) mainActivity
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
-		// 默认没有联网状态
-		boolean isNetworkAvailabel = false;
 		if (manager != null) {
 			NetworkInfo[] info = manager.getAllNetworkInfo();
 			if (info != null) {
 				for (NetworkInfo networkInfo : info) {
 					if (networkInfo.getState() == NetworkInfo.State.CONNECTED) {
-						// 检测到网络为连接状态
-						isNetworkAvailabel = true;
+						return true;
 					}
 				}
 			}
 		}
-		if (!isNetworkAvailabel) {
-			TextView netSetting = new TextView(loadActivity);
-			netSetting.setText("当前没有可用的网络连接，请设置网络");
-			new AlertDialog.Builder(loadActivity)
-					.setIcon(R.drawable.sad)
-					.setTitle("网络状态提示")
-					.setView(netSetting)
-					.setPositiveButton("确定",
-							new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									loadActivity.startActivity(new Intent(
-											Settings.ACTION_WIRELESS_SETTINGS));
-									loadActivity.finish();
-								}
-							}).create().show();
-		}
+		return false;
 	}
 
 	/**
@@ -507,5 +490,18 @@ public class Tools {
 		String imgSize = cursor.getString(2); // 图片大小
 		String imgName = cursor.getString(3); // 图片文件名
 		return new String[] { imgNo, imgPath, imgName, imgSize };
+	}
+
+	// 检测服务是否正在运行
+	public static boolean isServiceRunning(Context context, String service_Name) {
+		ActivityManager manager = (ActivityManager) context
+				.getSystemService(Context.ACTIVITY_SERVICE);
+		for (RunningServiceInfo service : manager
+				.getRunningServices(Integer.MAX_VALUE)) {
+			if (service_Name.equals(service.service.getClassName())) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

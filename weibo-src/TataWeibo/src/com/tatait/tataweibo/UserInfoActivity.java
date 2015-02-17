@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.tatait.tataweibo.LoadActivity.UserSession;
+import com.tatait.tataweibo.MainActivity.UserSession;
 import com.tatait.tataweibo.bean.UserInfo;
 
 public class UserInfoActivity extends Activity {

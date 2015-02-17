@@ -29,9 +29,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.tatait.tataweibo.Constants;
 import com.tatait.tataweibo.HomeActivity;
 import com.tatait.tataweibo.R;
+import com.tatait.tataweibo.bean.Constants;
 import com.tatait.tataweibo.bean.ContentInfo;
 import com.tatait.tataweibo.util.AsyncImageLoader;
 import com.tatait.tataweibo.util.AsyncImageLoader.ImageCallback;

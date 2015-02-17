@@ -72,14 +72,13 @@
             </TextView>
         </RelativeLayout>
     </RelativeLayout>
-
+<!-- android:autoLink="web|phone|email" -->
     <TextView
         android:id="@+id/content_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/content_rela"
         android:textColor="@color/sblack"
-        android:autoLink="web|phone|email"
         android:textSize="20sp" >
     </TextView>
 

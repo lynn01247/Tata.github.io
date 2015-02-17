@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <Button
+        android:id="@+id/btn1"
+        android:layout_width="45dip"
+        android:layout_height="30dip"
+        android:background="@drawable/setting_switch_on_bg"
+        android:text="@string/setting_open"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btn2"
+        android:layout_width="45dip"
+        android:layout_height="30dip"
+        android:layout_toRightOf="@+id/btn1"
+        android:background="@drawable/setting_switch_off_bg"
+        android:text="@string/setting_close"
+        android:textColor="@color/huise"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btn3"
+        android:layout_width="50dip"
+        android:layout_height="30dip"
+        android:background="@drawable/setting_switch" />
+
+</RelativeLayout>

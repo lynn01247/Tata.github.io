@@ -24,21 +24,20 @@
 	<!-- 左侧滑动栏 -->
     <RelativeLayout
         android:id="@+id/main_left_drawer_layout"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_gravity="start"
         android:background="@android:color/transparent"
-        android:paddingTop="38dp" >
+        android:paddingTop="55dp" >
     </RelativeLayout>
     <!-- 右侧滑动栏 -->
-
     <RelativeLayout
         android:id="@+id/main_right_drawer_layout"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_gravity="end"
         android:background="@android:color/transparent"
-        android:paddingTop="38dp" >
+        android:paddingTop="55dp" >
     </RelativeLayout>
 
 </android.support.v4.widget.DrawerLayout>

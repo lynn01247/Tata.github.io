@@ -1,27 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#cd9a5b" >
+    android:background="@color/white"
+    android:orientation="vertical" >
 
+    <include
+        android:id="@+id/layout_title_bar"
+        layout="@layout/home_tilte_bar" />
+
+    <include
+        android:id="@+id/layout_foot_bar"
+        layout="@layout/foot_bar" />
     <TextView
-        android:id="@+id/more_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
         android:text="@string/more_text"
-        android:textColor="#694d9f"
-        android:textSize="15sp" />
-	<include
-        android:id="@+id/layout_title_bar"
-        layout="@layout/foot_bar" />
-    <ImageView
-        android:id="@+id/more_image"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/more_text"
-        android:contentDescription="@null"
-        android:src="@drawable/more" />
+        android:textColor="@color/huise" />
 
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:gravity="center"
+            android:text="@string/is_cartoon"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <com.tatait.tataweibo.MySlipSwitch
+            android:id="@+id/main_myslipswitch"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp" />
+    </RelativeLayout>
+
+</LinearLayout>

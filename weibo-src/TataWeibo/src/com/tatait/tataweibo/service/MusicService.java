@@ -2,7 +2,8 @@ package com.tatait.tataweibo.service;
 
 import java.util.Random;
 
-import com.tatait.tataweibo.MusicPlay;
+import com.tatait.tataweibo.TabMainActivity;
+import com.tatait.tataweibo.MusicPlayActivity;
 import com.tatait.tataweibo.R;
 import com.tatait.tataweibo.bean.MusicInfo;
 
@@ -84,7 +85,7 @@ public class MusicService extends Service implements OnCompletionListener {
 	 */
 	public String initMusicUri(int _id) {
 		playing_id = _id;
-		return MusicPlay.mAdapter.musicList.get(playing_id).getMusicPath();
+		return MusicPlayActivity.mAdapter.musicList.get(playing_id).getMusicPath();
 	}
 
 	/**
@@ -97,13 +98,17 @@ public class MusicService extends Service implements OnCompletionListener {
 
 		if (mplayer != null) {
 			if (mplayer.isPlaying()) {
-				MusicPlay.play_button
+				MusicPlayActivity.play_button
 						.setImageResource(R.drawable.play_button_xml);
+				TabMainActivity.menu_play_button
+				.setImageResource(R.drawable.play_button_xml);
 				mplayer.pause();
 			} else {
 				setInfo();
-				MusicPlay.play_button
+				MusicPlayActivity.play_button
 						.setImageResource(R.drawable.pause_button_xml);
+				TabMainActivity.menu_play_button
+				.setImageResource(R.drawable.pause_button_xml);
 				mplayer.start();
 			}
 			mHandler.post(mRunnable);
@@ -112,8 +117,8 @@ public class MusicService extends Service implements OnCompletionListener {
 				@Override
 				public void run() {
 					while (playFlag) {
-						MusicPlay.playingTime = mplayer.getCurrentPosition();
-						MusicPlay.seekbar.setProgress(MusicPlay.playingTime);
+						MusicPlayActivity.playingTime = mplayer.getCurrentPosition();
+						MusicPlayActivity.seekbar.setProgress(MusicPlayActivity.playingTime);
 						try {
 							Thread.sleep(1000);
 						} catch (InterruptedException e) {
@@ -127,15 +132,15 @@ public class MusicService extends Service implements OnCompletionListener {
 		}
 		mplayer.setOnCompletionListener(new OnCompletionListener() {
 			public void onCompletion(MediaPlayer mp) {
-				if (MusicPlay.play_mode == MusicInfo.LISTREPEAT) {
+				if (MusicPlayActivity.play_mode == MusicInfo.LISTREPEAT) {
 					playNext();
-				} else if (MusicPlay.play_mode == MusicInfo.SINGLEREPEAT) {
+				} else if (MusicPlayActivity.play_mode == MusicInfo.SINGLEREPEAT) {
 					initMediaSource(initMusicUri(playing_id));
 					playMusic();
 				} else {
 					Random rand = new Random();
 					int i = rand.nextInt(); // int范围类的随机数
-					int size = MusicPlay.mAdapter.musicList.size();
+					int size = MusicPlayActivity.mAdapter.musicList.size();
 					i = rand.nextInt(size); // 生成0-100以内的随机数
 					initMediaSource(initMusicUri(i));
 					playMusic();
@@ -147,33 +152,33 @@ public class MusicService extends Service implements OnCompletionListener {
 
 	public void setInfo() {
 		// 获得歌曲时间
-		MusicPlay.songTime = MusicPlay.mAdapter.musicList.get(
+		MusicPlayActivity.songTime = MusicPlayActivity.mAdapter.musicList.get(
 				MusicService.playing_id).getMusicTime();
-		MusicPlay.seekbar.setMax(MusicPlay.songTime);
-		MusicPlay.mName.setText(MusicPlay.mAdapter
-				.toMp3(MusicPlay.mAdapter.musicList
+		MusicPlayActivity.seekbar.setMax(MusicPlayActivity.songTime);
+		MusicPlayActivity.mName.setText(MusicPlayActivity.mAdapter
+				.toMp3(MusicPlayActivity.mAdapter.musicList
 						.get(MusicService.playing_id).getMusicName()));
-		String url = MusicPlay.mAdapter
-				.getAlbumArt(MusicPlay.mAdapter.musicList.get(
+		String url = MusicPlayActivity.mAdapter
+				.getAlbumArt(MusicPlayActivity.mAdapter.musicList.get(
 						MusicService.playing_id).getMusicId());
 		if (url != null) {
-			MusicPlay.mAlbum.setImageURI(Uri.parse(url));
+			MusicPlayActivity.mAlbum.setImageURI(Uri.parse(url));
 		} else {
-			MusicPlay.mAlbum.setImageResource(R.drawable.album);
+			MusicPlayActivity.mAlbum.setImageResource(R.drawable.album);
 		}
 	}
 
 	// 上一首
 	public void playPre() {
-		if (MusicPlay.play_mode == MusicInfo.RANDOM) {
+		if (MusicPlayActivity.play_mode == MusicInfo.RANDOM) {
 			Random rand = new Random();
 			int i = rand.nextInt(); // int范围类的随机数
-			int size = MusicPlay.mAdapter.musicList.size();
+			int size = MusicPlayActivity.mAdapter.musicList.size();
 			i = rand.nextInt(size); // 生成0-100以内的随机数
 			initMediaSource(initMusicUri(i));
 		} else {
 			if (playing_id == 0) {
-				playing_id = MusicPlay.mAdapter.musicList.size() - 1;
+				playing_id = MusicPlayActivity.mAdapter.musicList.size() - 1;
 				initMediaSource(initMusicUri(playing_id));
 			} else {
 				initMediaSource(initMusicUri(--playing_id));
@@ -184,14 +189,14 @@ public class MusicService extends Service implements OnCompletionListener {
 
 	// 下一首
 	public void playNext() {
-		if (MusicPlay.play_mode == MusicInfo.RANDOM) {
+		if (MusicPlayActivity.play_mode == MusicInfo.RANDOM) {
 			Random rand = new Random();
 			int i = rand.nextInt(); // int范围类的随机数
-			int size = MusicPlay.mAdapter.musicList.size();
+			int size = MusicPlayActivity.mAdapter.musicList.size();
 			i = rand.nextInt(size); // 生成0-100以内的随机数
 			initMediaSource(initMusicUri(i));
 		} else {
-			if (playing_id == MusicPlay.mAdapter.musicList.size() - 1) {
+			if (playing_id == MusicPlayActivity.mAdapter.musicList.size() - 1) {
 				initMediaSource(initMusicUri(0));
 			} else {
 				initMediaSource(initMusicUri(++playing_id));

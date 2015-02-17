@@ -1,5 +1,7 @@
 package com.tatait.tataweibo;
 
+import com.tatait.tataweibo.bean.Constants;
+
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;

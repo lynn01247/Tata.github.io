@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         <activity
-            android:name=".LoadActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,10 +28,12 @@
         <activity android:name=".LoginCircleActivity" />
         <!-- 主页 -->
         <activity android:name=".HomeActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".MsgActivity" />
+        <activity android:name=".TabMainActivity" />
+        <activity android:name=".ReadActivity" />
         <activity android:name=".UserInfoActivity" />
         <activity android:name=".MoreActivity" />
+        <activity android:name=".OpenFileActivity" />
+        <activity android:name="com.tatait.tataweibo.util.file.ViewFile" />
         <!-- writer -->
         <activity
             android:name=".WriterWeiboActivity"
@@ -69,7 +71,7 @@
                     android:scheme="devdiv" />
             </intent-filter>
         </activity>
-        <activity android:name=".MusicPlay" >
+        <activity android:name=".MusicPlayActivity" >
         </activity>
         <service android:name="com.tatait.tataweibo.service.MusicService" >
         </service>

@@ -24,8 +24,10 @@ import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.openapi.models.User;
+import com.tatait.tataweibo.bean.Constants;
 import com.tatait.tataweibo.bean.UserInfo;
 import com.tatait.tataweibo.dao.UserDao;
+import com.tatait.tataweibo.util.AccessTokenKeeper;
 import com.tatait.tataweibo.util.Response;
 import com.tatait.tataweibo.util.Tools;
 
@@ -53,47 +55,26 @@ public class OAuthActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.load);
 		/**
-		 * 初始化悬浮提示授权弹出框
+		 * 模拟器区别初始化:获取当前已保存过的 Token
 		 */
-		View diaView = View.inflate(this, R.layout.oauth_dialog, null);
-		dialog = new Dialog(this, R.style.dialog);
-		dialog.setContentView(diaView);
-		dialog.show();
-//		/**
-//		 * 模拟器区别初始化:获取当前已保存过的 Token
-//		 */
-//		mAccessToken = AccessTokenKeeper.readAccessToken(this);
+		mAccessToken = AccessTokenKeeper.readAccessToken(this);
 		mAuthInfo = new AuthInfo(this, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE);
         mSsoHandler = new SsoHandler(OAuthActivity.this, mAuthInfo);
 		/**
 		 * 授权按钮的动作
 		 */
-		Button startBtn = (Button) diaView.findViewById(R.id.btn_start);
+		Button startBtn = (Button)findViewById(R.id.loadButton);
 		startBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				/**
 				 * 执行SSO授权
 				 */
-				 mSsoHandler.authorize(new AuthListener());
-//				getUserInfo(mAccessToken);
+//				 mSsoHandler.authorize(new AuthListener());
+				getUserInfo(mAccessToken);
 			}
 
 		});
-//		/**
-//		 * 注销登陆的动作
-//		 */
-//		Button cancelBtn = (Button) diaView.findViewById(R.id.btn_cancel);
-//		cancelBtn.setOnClickListener(new OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				/**
-//				 * 注销,取消授权，去掉token信息
-//				 */
-//				AccessTokenKeeper.clear(getApplicationContext());
-//				mAccessToken = new Oauth2AccessToken();
-//			}
-//		});
 	}
 
 	/**

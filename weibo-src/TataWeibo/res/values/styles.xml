@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources> 
-<style name="notitle">
-<item name="android:windowNoTitle">true</item> 
-</style>
-  <style name="Theme.CustomDialog" parent="@android:style/Theme.Dialog">
+<resources>
+
+    <attr name="rightPadding" format="dimension" />
+
+    <declare-styleable name="SlidingMenu">
+        <attr name="rightPadding" />
+    </declare-styleable>
+
+    <style name="notitle">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.CustomDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@drawable/newbox</item>
     </style>
+
     <style name="tab_style">
         <item name="android:textSize">@dimen/bottom_tab_font_size</item>
         <item name="android:ellipsize">marquee</item>
@@ -18,20 +27,22 @@
         <item name="android:singleLine">true</item>
         <item name="android:layout_weight">1.0</item>
     </style>
+
     <style name="main_tab_bottom">
         <item name="android:textSize">@dimen/bottom_tab_font_size</item>
         <item name="android:textColor">#ffffffff</item>
         <item name="android:ellipsize">marquee</item>
-        <item name="android:gravity">center_horizontal</item>  
+        <item name="android:gravity">center_horizontal</item>
         <item name="android:background">@drawable/home_btn_bg</item>
         <item name="android:paddingTop">@dimen/bottom_tab_padding_up</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:button">@null</item>  
+        <item name="android:button">@null</item>
         <item name="android:singleLine">true</item>
         <item name="android:drawablePadding">@dimen/bottom_tab_padding_drawable</item>
         <item name="android:layout_weight">1.0</item>
     </style>
+
     <style name="TransparentDialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowFrame">@null</item>
@@ -42,6 +53,7 @@
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
+
     <style name="detail_btn">
         <item name="android:textSize">@dimen/bottom_tab_font_size</item>
         <item name="android:textColor">@android:color/black</item>
@@ -51,12 +63,13 @@
         <item name="android:paddingTop">8.0dip</item>
         <item name="android:paddingBottom">5.0dip</item>
         <item name="android:focusable">true</item>
-        <item name="android:clickable">true</item>  
+        <item name="android:clickable">true</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:singleLine">true</item>
         <item name="android:layout_weight">1.0</item>
     </style>
+
     <style name="dialogstyle" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
@@ -64,6 +77,7 @@
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
+
     <style name="search_radiobutton_weibo">
         <item name="android:textSize">@dimen/bottom_tab_font_size</item>
         <item name="android:textColor">#ff000000</item>
@@ -78,6 +92,7 @@
         <item name="android:drawablePadding">@dimen/bottom_tab_padding_drawable</item>
         <item name="android:layout_weight">1.0</item>
     </style>
+
     <style name="search_radiobutton_user">
         <item name="android:textSize">@dimen/bottom_tab_font_size</item>
         <item name="android:textColor">#ff000000</item>
@@ -88,21 +103,23 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:button">@null</item>
-        <item name="android:singleLine">true</item>  
+        <item name="android:singleLine">true</item>
         <item name="android:drawablePadding">@dimen/bottom_tab_padding_drawable</item>
         <item name="android:layout_weight">1.0</item>
     </style>
-    <style name="Transparent">
 
+    <style name="Transparent">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
     </style>
-    <style name="ContentOverlay" parent="@android:style/Theme">  
+
+    <style name="ContentOverlay" parent="@android:style/Theme">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
     </style>
-</resources> 
+
+</resources>

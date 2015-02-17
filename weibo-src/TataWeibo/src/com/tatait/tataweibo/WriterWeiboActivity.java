@@ -1,8 +1,6 @@
 package com.tatait.tataweibo;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +18,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,10 +29,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
-import com.tatait.tataweibo.LoadActivity.UserSession;
+import com.tatait.tataweibo.MainActivity.UserSession;
+import com.tatait.tataweibo.bean.Constants;
 import com.tatait.tataweibo.bean.UserInfo;
-import com.tatait.tataweibo.util.FileService;
+import com.tatait.tataweibo.util.AccessTokenKeeper;
 import com.tatait.tataweibo.util.Tools;
+import com.tatait.tataweibo.util.file.FileService;
+import com.tatait.tataweibo.util.show.CircularImage;
 
 /**
  * 发微博（图 文）
@@ -44,11 +44,11 @@ import com.tatait.tataweibo.util.Tools;
  * 
  */
 public class WriterWeiboActivity extends Activity {
-	private static final String TAG = "WriterWeiboActivity";
 	private Oauth2AccessToken mAccessToken;
-	private Button refresh_weibo, writer_weibo, menu_btn;
+	private Button writer_weibo;
 	private Button upImage_btn;
-	private ImageView images;
+	private ImageView writer_images, home_title_bar_image;
+	private CircularImage circularImage;
 	private EditText weibo_txt;
 	private TextView tv_text_limit, txt_wb_title = null;
 	// 发送图片的路径
@@ -62,21 +62,21 @@ public class WriterWeiboActivity extends Activity {
 		setContentView(R.layout.writer);
 		weibo_txt = (EditText) findViewById(R.id.weibo_txt);
 		tv_text_limit = (TextView) findViewById(R.id.tv_text_limit);
-		txt_wb_title = (TextView) findViewById(R.id.txt_wb_title);
+		txt_wb_title = (TextView) findViewById(R.id.home_title_login_user);
 		// 设置当前登陆人
 		UserInfo user = UserSession.nowUser;
 		txt_wb_title.setText(user.getUser_name());
-		menu_btn = (Button) findViewById(R.id.menu_btn);
-		refresh_weibo = (Button) findViewById(R.id.btn_refresh);
-		refresh_weibo.setVisibility(View.GONE);
+		home_title_bar_image = (ImageView) findViewById(R.id.home_title_bar_image);
+		circularImage = (CircularImage) findViewById(R.id.home_title_bar_user_photo);
+		circularImage.setVisibility(View.GONE);
 		// 设置返回按钮图片和底色
-		menu_btn.setBackgroundResource(R.drawable.left);
-		params.leftMargin = 0;
-		params.topMargin = 6;
-		menu_btn.setLayoutParams(params);
-		writer_weibo = (Button) findViewById(R.id.btn_writer);
+		home_title_bar_image.setBackgroundResource(R.drawable.left);
+		// params.leftMargin = 0;
+		// params.topMargin = 6;
+		// home_title_bar_image.setLayoutParams(params);
+		writer_weibo = (Button) findViewById(R.id.menu_btn_right);
 		upImage_btn = (Button) findViewById(R.id.upImage_btn);
-		images = (ImageView) findViewById(R.id.images);
+		writer_images = (ImageView) findViewById(R.id.writer_images);
 		// 设置发送按钮图片
 		writer_weibo.setBackgroundResource(R.drawable.send_default);
 		MyClick click = new MyClick();
@@ -136,15 +136,16 @@ public class WriterWeiboActivity extends Activity {
 			case R.id.upImage_btn:// 添加图片
 				imageChooseItem(Constants.meun_items);
 				break;
-			case R.id.btn_writer:// 发送微博
+			case R.id.menu_btn_right:// 发送微博
 				int flag = 1;// 1:表示发送文字微博 2:表示发送图文微博
 				List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-				params.add(new BasicNameValuePair("status", weibo_txt.getText().toString()));
+				params.add(new BasicNameValuePair("status", weibo_txt.getText()
+						.toString()));
 				if (!"".equals(image_path)) {
 					flag = 2;
 					params.add(new BasicNameValuePair("pic", image_path));
 				}
-				if (Tools.getInstance().writerWeibo(params, flag,mAccessToken)) {
+				if (Tools.getInstance().writerWeibo(params, flag, mAccessToken)) {
 					Toast.makeText(
 							WriterWeiboActivity.this,
 							WriterWeiboActivity.this.getResources().getString(
@@ -161,7 +162,7 @@ public class WriterWeiboActivity extends Activity {
 							.show();
 				}
 				break;
-			case R.id.menu_btn:// 返回按钮
+			case R.id.home_title_bar_image:// 返回按钮
 				Intent intent = new Intent(WriterWeiboActivity.this,
 						HomeActivity.class);
 				startActivity(intent);
@@ -219,9 +220,9 @@ public class WriterWeiboActivity extends Activity {
 									REQUEST_CODE_GETIMAGE_BYCAMERA);
 						} else if (item == 2) {
 							thisLarge = null;
-							images.setImageBitmap(null);
+							writer_images.setImageBitmap(null);
 							image_path = "";
-							images.setVisibility(View.GONE);
+							writer_images.setVisibility(View.GONE);
 						}
 					}
 				}).create();
@@ -249,20 +250,20 @@ public class WriterWeiboActivity extends Activity {
 			File file = new File(imageArray[1]);
 			Bitmap bitmap_Image = BitmapFactory.decodeFile(file.getPath());
 			if (bitmap_Image != null) {
-				images.setVisibility(View.VISIBLE);
-				images.setImageBitmap(bitmap_Image);
+				writer_images.setVisibility(View.VISIBLE);
+				writer_images.setImageBitmap(bitmap_Image);
 				image_path = file.getPath();
 			}
 		} else if (requestCode == REQUEST_CODE_GETIMAGE_BYCAMERA) {// 拍摄图片
 			File file = new File(image_path);
 			Bitmap bitmap_Image = BitmapFactory.decodeFile(file.getPath());
 			if (bitmap_Image != null) {
-				images.setVisibility(View.VISIBLE);
-				images.setImageBitmap(bitmap_Image);
+				writer_images.setVisibility(View.VISIBLE);
+				writer_images.setImageBitmap(bitmap_Image);
 			}
 		}
 
-		images.setOnClickListener(new OnClickListener() {
+		writer_images.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent();
