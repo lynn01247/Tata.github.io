@@ -40,7 +40,6 @@ import com.tatait.tataweibo.util.Tools;
 public class OAuthActivity extends Activity {
 	private long exitTime = 0;
 	private static final String TAG = "OAuthActivity";
-	private Dialog dialog;
 	/**
 	 * OAuth2.0认证--SSO授权
 	 */
@@ -57,7 +56,7 @@ public class OAuthActivity extends Activity {
 		/**
 		 * 模拟器区别初始化:获取当前已保存过的 Token
 		 */
-		mAccessToken = AccessTokenKeeper.readAccessToken(this);
+//		mAccessToken = AccessTokenKeeper.readAccessToken(this);
 		mAuthInfo = new AuthInfo(this, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE);
         mSsoHandler = new SsoHandler(OAuthActivity.this, mAuthInfo);
 		/**
@@ -70,8 +69,8 @@ public class OAuthActivity extends Activity {
 				/**
 				 * 执行SSO授权
 				 */
-//				 mSsoHandler.authorize(new AuthListener());
-				getUserInfo(mAccessToken);
+				mSsoHandler.authorize(new AuthListener());
+//				getUserInfo(mAccessToken);
 			}
 
 		});
@@ -88,6 +87,7 @@ public class OAuthActivity extends Activity {
 		@Override
 		public void onComplete(Bundle values) {
 			// 从 Bundle 中解析 Token
+			Log.i(TAG, "SUCCESS");
 			mAccessToken = Oauth2AccessToken.parseAccessToken(values);
 			if (mAccessToken.isSessionValid()) {
 				// 保存 Token 到 SharedPreferences
@@ -171,13 +171,11 @@ public class OAuthActivity extends Activity {
 			Toast.makeText(OAuthActivity.this,
 					R.string.weibosdk_demo_toast_auth_success,
 					Toast.LENGTH_SHORT).show();
-			dialog.dismiss();
 			makeToLogin();
 		} else {
 			Toast.makeText(OAuthActivity.this,
 					R.string.weibosdk_demo_toast_auth_failed,
 					Toast.LENGTH_SHORT).show();
-			dialog.dismiss();
 		}
 	}
 

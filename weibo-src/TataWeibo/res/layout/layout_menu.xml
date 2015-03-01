@@ -7,17 +7,26 @@
 
     <LinearLayout 
     android:layout_width="fill_parent"
-    android:layout_height="50dp"
+    android:layout_height="100dp"
     android:gravity="center"
     android:orientation="vertical"
     android:background="@color/special" >
 
+    <TextView 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5sp"
+    android:layout_marginTop="5sp"
+    android:text="我爱音乐"
+	/>
+    
     <ImageButton
         android:id="@+id/menu_play_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginLeft="5sp"
+        android:layout_marginTop="5sp"
         android:background="@color/touming"
         android:contentDescription="@null"
         android:padding="1dp"
@@ -30,6 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginLeft="5sp"
+        android:layout_marginTop="5sp"
         android:background="@color/touming"
         android:contentDescription="@null"
         android:padding="1dp"

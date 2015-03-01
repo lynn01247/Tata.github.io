@@ -166,13 +166,13 @@ public class HomeActivity extends FragmentActivity {
 							public void onClick(DialogInterface dialog, int item) {
 								if (item == 0) {
 									Toast.makeText(HomeActivity.this,
-											"功能待开发...", Toast.LENGTH_LONG)
+											R.string.loving, Toast.LENGTH_LONG)
 											.show();
 								} else if (item == 1) {
 									logoff();
 								} else if (item == 2) {
 									Toast.makeText(HomeActivity.this,
-											"功能待开发...", Toast.LENGTH_LONG)
+											R.string.loving, Toast.LENGTH_LONG)
 											.show();
 								}
 							}
