@@ -100,15 +100,15 @@ public class MusicService extends Service implements OnCompletionListener {
 			if (mplayer.isPlaying()) {
 				MusicPlayActivity.play_button
 						.setImageResource(R.drawable.play_button_xml);
-				TabMainActivity.menu_play_button
-				.setImageResource(R.drawable.play_button_xml);
+				TabMainActivity.menuPlayButton
+						.setImageResource(R.drawable.play_button_xml);
 				mplayer.pause();
 			} else {
 				setInfo();
 				MusicPlayActivity.play_button
 						.setImageResource(R.drawable.pause_button_xml);
-				TabMainActivity.menu_play_button
-				.setImageResource(R.drawable.pause_button_xml);
+				TabMainActivity.menuNextButton
+						.setImageResource(R.drawable.pause_button_xml);
 				mplayer.start();
 			}
 			mHandler.post(mRunnable);
@@ -206,7 +206,7 @@ public class MusicService extends Service implements OnCompletionListener {
 	}
 
 	public void onCompletion(MediaPlayer arg0) {
-		Toast.makeText(this, "onCompletion", 1).show();
+		Toast.makeText(this, "onCompletion", Toast.LENGTH_LONG).show();
 	}
 
 	Handler mHandler = new Handler();

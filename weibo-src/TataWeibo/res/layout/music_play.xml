@@ -7,7 +7,7 @@
 
     <include
         android:id="@+id/layout_title_bar"
-        layout="@layout/home_tilte_bar" />
+        layout="@layout/top_tilte_bar" />
 
     <RelativeLayout
         android:layout_width="fill_parent"

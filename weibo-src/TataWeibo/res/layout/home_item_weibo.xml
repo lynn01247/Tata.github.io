@@ -1,95 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:paddingBottom="8dp"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp" >
+    android:background="@color/white">
 
     <RelativeLayout
         android:id="@+id/content_rela"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp" >
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_size_50dp"
+        android:gravity="center">
 
-        <ImageView
+        <com.tatait.tataweibo.util.show.CircularImage
             android:id="@+id/content_head"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/margin_size_40dp"
+            android:layout_height="@dimen/margin_size_40dp"
+            android:layout_margin="@dimen/margin_size_5dp"
             android:contentDescription="@null"
-            android:layout_alignParentLeft="true">
-        </ImageView>
+            android:src="@drawable/user_default" />
 
         <RelativeLayout
             android:id="@+id/content_line"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@+id/content_head" >
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin_size_10dp"
+            android:layout_toRightOf="@+id/content_head">
 
             <TextView
                 android:id="@+id/content_user"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="@dimen/margin_size_20dp"
+                android:layout_marginTop="@dimen/margin_size_5dp"
                 android:gravity="center"
-                android:textColor="@color/oringe"
                 android:includeFontPadding="false"
-                android:textSize="20sp">
-            </TextView>
+                android:textColor="@color/oringe"
+                android:textSize="@dimen/font_size_17sp" />
+
             <TextView
                 android:id="@+id/content_user_id"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:gravity="center"
+                android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/content_user"
-                android:textColor="@color/oringe"
+                android:gravity="center"
                 android:includeFontPadding="false"
-                android:visibility="invisible"
-                android:textSize="12sp">
-            </TextView>
+                android:textColor="@color/oringe"
+                android:textSize="12sp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/content_time"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:gravity="center"
+                android:layout_height="@dimen/margin_size_20dp"
                 android:layout_below="@+id/content_user"
-                android:textColor="@color/huise"
+                android:gravity="center"
                 android:includeFontPadding="false"
-                android:textSize="15sp" >
-            </TextView>
+                android:textColor="@color/gray"
+                android:textSize="@dimen/font_size_12sp" />
 
             <TextView
                 android:id="@+id/content_source"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:gravity="center"
+                android:layout_height="@dimen/margin_size_20dp"
                 android:layout_below="@+id/content_user"
                 android:layout_toRightOf="@+id/content_time"
+                android:gravity="center"
                 android:includeFontPadding="false"
-                android:textColor="@color/huise"
-                android:textSize="15sp" >
-            </TextView>
+                android:textColor="@color/gray"
+                android:textSize="@dimen/font_size_12sp" />
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/guanzhu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/margin_size_8dp"
+            android:background="@drawable/corner_white_5dp_blue"
+            android:gravity="center"
+            android:text="关注"
+            android:textColor="@color/sblue" />
     </RelativeLayout>
-<!-- android:autoLink="web|phone|email" -->
+    <!-- android:autoLink="web|phone|email" -->
     <TextView
         android:id="@+id/content_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/content_rela"
+        android:layout_marginLeft="@dimen/margin_size_10dp"
+        android:layout_marginRight="@dimen/margin_size_10dp"
         android:textColor="@color/sblack"
-        android:textSize="20sp" >
-    </TextView>
+        android:textSize="@dimen/font_size_17sp" />
 
     <ImageView
         android:id="@+id/content_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/content_text"
-        android:layout_marginRight="5dp"
-        android:contentDescription="@null"
-        android:layout_marginTop="3dp" >
-    </ImageView>
+        android:layout_marginBottom="@dimen/margin_size_5dp"
+        android:layout_marginLeft="@dimen/margin_size_10dp"
+        android:layout_marginRight="@dimen/margin_size_10dp"
+        android:layout_marginTop="@dimen/margin_size_3dp"
+        android:contentDescription="@null" />
 
+    <View
+        android:id="@+id/fengexian"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_size_1dp"
+        android:layout_below="@id/content_image"
+        android:background="@color/gray_white" />
+
+    <LinearLayout
+        android:id="@+id/share_pinglun_biaotai"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_size_30dp"
+        android:layout_below="@id/fengexian"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/biaotai_num"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="表态"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_size_13sp" />
+
+        <View
+            android:layout_width="@dimen/margin_size_0.1dp"
+            android:layout_height="@dimen/margin_size_20dp"
+            android:background="@color/gray_white" />
+
+        <TextView
+            android:id="@+id/pinglun_num"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="评论"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_size_13sp" />
+
+        <View
+            android:layout_width="@dimen/margin_size_0.1dp"
+            android:layout_height="@dimen/margin_size_20dp"
+            android:background="@color/gray_white" />
+
+        <TextView
+            android:id="@+id/share_num"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="转发"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_size_13sp" />
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_size_10dp"
+        android:layout_below="@id/share_pinglun_biaotai"
+        android:background="@color/gray_white" />
 </RelativeLayout>

@@ -49,13 +49,14 @@ public class UserDao {
 		values.put(DBInfo.Table.FOLLOWERS_COUNT, user.getFollowers_count());
 		values.put(DBInfo.Table.FRIENDS_COUNT, user.getFriends_count());
 		values.put(DBInfo.Table.STATUSES_COUNT, user.getStatuses_count());
-		//将图片类型的数据进行转换再存储到BLOB类型中
-		ByteArrayOutputStream os = new ByteArrayOutputStream();
-		BitmapDrawable drawable= (BitmapDrawable)user.getUser_head();
-		//压缩成PNG编码数据，存储质量为100%
-		drawable.getBitmap().compress(CompressFormat.PNG, 100, os);
-		
-		values.put(DBInfo.Table.USER_HEAD, os.toByteArray());
+//		//将图片类型的数据进行转换再存储到BLOB类型中
+//		ByteArrayOutputStream os = new ByteArrayOutputStream();
+//		BitmapDrawable drawable= (BitmapDrawable)user.getUser_head();
+//		//压缩成PNG编码数据，存储质量为100%
+//		drawable.getBitmap().compress(CompressFormat.PNG, 100, os);
+//
+//		values.put(DBInfo.Table.USER_HEAD, os.toByteArray());
+		values.put(DBInfo.Table.USER_HEAD, user.getUser_head());
 		long rowId = db.insert(DBInfo.Table.USER_TABLE, DBInfo.Table.USER_NAME, values);
 		
 		db.close();
@@ -94,11 +95,12 @@ public class UserDao {
 				user.setToken(cursor.getString(cursor.getColumnIndex(DBInfo.Table.TOKEN)));
 				user.setToken_secret(cursor.getString(cursor.getColumnIndex(DBInfo.Table.TOKEN_SECRET)));
 				user.setDescription(cursor.getString(cursor.getColumnIndex(DBInfo.Table.DESCRIPTION)));
-				byte[] btyeHead = cursor.getBlob(cursor.getColumnIndex(DBInfo.Table.USER_HEAD));
-				
-				ByteArrayInputStream is = new ByteArrayInputStream(btyeHead);
-				Drawable user_head = Drawable.createFromStream(is, "headImage");
-				user.setUser_head(user_head);
+//				byte[] btyeHead = cursor.getBlob(cursor.getColumnIndex(DBInfo.Table.USER_HEAD));
+//
+//				ByteArrayInputStream is = new ByteArrayInputStream(btyeHead);
+//				Drawable user_head = Drawable.createFromStream(is, "headImage");
+//				user.setUser_head(user_head);
+				user.setUser_head(cursor.getString(cursor.getColumnIndex(DBInfo.Table.USER_HEAD)));
 				user.setLocation(cursor.getString(cursor.getColumnIndex(DBInfo.Table.LOCATION)));
 				user.setGender(cursor.getString(cursor.getColumnIndex(DBInfo.Table.GENDER)));
 				user.setFavourites_count(cursor.getString(cursor.getColumnIndex(DBInfo.Table.FAVOURITES_COUNT)));

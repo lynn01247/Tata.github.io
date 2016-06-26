@@ -14,7 +14,9 @@ public class Constants {
 	/**
 	 * 第三方应用可以使用自己的回调页。
 	 */
-	public static final String REDIRECT_URL = "https://api.weibo.com/oauth2/default.html";
+//	public static final String REDIRECT_URL = "http://sns.whalecloud.com/";
+	public static final String REDIRECT_URL = "http://lynn01247.github.io/tata.dev.html";
+//	public static final String REDIRECT_URL = "https://api.weibo.com/oauth2/default.html";
 
 	/**
 	 * Scope 是 OAuth2.0 授权机制中 authorize 接口的一个参数。通过 Scope，平台将开放更多的微博
@@ -38,6 +40,9 @@ public class Constants {
 	 */
 	public final static String WEIBO_GET_STATUS_PUBLIC_TIMELINE = WEIBO_WEBSITE
 			+ "/2/statuses/home_timeline.json";
+
+	public final static String WEIBO_QUXIAO_GUANZHU = WEIBO_WEBSITE + "/2/friendships/destroy.json";
+	public final static String WEIBO_GUANZHU = WEIBO_WEBSITE + "/2/friendships/create.json";
 	/**
      * DALVIK
      */
@@ -107,11 +112,11 @@ public class Constants {
     /**
      * 发布一条文字微博信息
      */
-    public final static String WEIBO_WRITER_TXT = WEIBO_WEBSITE+ "/statuses/update.json";
+    public final static String WEIBO_WRITER_TXT = WEIBO_WEBSITE+ "/2/statuses/update.json";
     /**
      * 发布一条 图 文 微博信息
      */
-    public final static String WEIBO_WRITER_TXT_IMG = WEIBO_WEBSITE+ "/statuses/upload.json";
+    public final static String WEIBO_WRITER_TXT_IMG = WEIBO_WEBSITE+ "/2/statuses/upload.json";
     
     public static final String MENTIONS_SCHEMA ="devdiv://tata_profile_jing";
 	public static final String TRENDS_SCHEMA ="devdiv://tata_profile_at";

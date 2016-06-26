@@ -1,6 +1,5 @@
 <com.tatait.tataweibo.util.show.SlidingMenu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:zhy="http://schemas.android.com/apk/res/com.tatait.tataweibo"
+    xmlns:zhy="http://schemas.android.com/apk/res-auto"
     android:id="@+id/id_menu"
     android:layout_width="wrap_content"
     android:layout_height="fill_parent"
@@ -42,7 +41,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:background="@drawable/maintab_toolbar_bg"
+                    android:background="@color/layout_bg"
                     android:gravity="center_vertical"
                     android:orientation="horizontal" >
 
@@ -50,23 +49,15 @@
                         android:id="@+id/radio_button0"
                         style="@style/main_tab_bottom"
                         android:layout_marginTop="2.0dip"
-                        android:drawableTop="@drawable/icon_1_n"
+                        android:drawableTop="@drawable/icon_1"
                         android:tag="radio_button0"
                         android:text="@string/main_home" />
-
-                    <!-- <RadioButton
-                        android:id="@+id/radio_button1"
-                        style="@style/main_tab_bottom"
-                        android:layout_marginTop="2.0dip"
-                        android:drawableTop="@drawable/icon_2_n"
-                        android:tag="radio_button1"
-                        android:text="@string/main_news" />-->
 
                     <RadioButton
                         android:id="@+id/radio_button2"
                         style="@style/main_tab_bottom"
                         android:layout_marginTop="2.0dip"
-                        android:drawableTop="@drawable/play_button_press"
+                        android:drawableTop="@drawable/icon_2"
                         android:tag="radio_button2"
                         android:text="@string/menu_music" /> 
 
@@ -74,7 +65,7 @@
                         android:id="@+id/radio_button3"
                         style="@style/main_tab_bottom"
                         android:layout_marginTop="2.0dip"
-                        android:drawableTop="@drawable/icon_2_n"
+                        android:drawableTop="@drawable/icon_3"
                         android:tag="radio_button3"
                         android:text="@string/reader" />
 
@@ -82,7 +73,7 @@
                         android:id="@+id/radio_button4"
                         style="@style/main_tab_bottom"
                         android:layout_marginTop="2.0dip"
-                        android:drawableTop="@drawable/icon_5_n"
+                        android:drawableTop="@drawable/icon_4"
                         android:tag="radio_button4"
                         android:text="@string/more" />
                 </RadioGroup>

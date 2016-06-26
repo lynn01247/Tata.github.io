@@ -1,17 +1,15 @@
 package com.tatait.tataweibo.util.file;
 
+import android.content.Context;
+import android.os.Environment;
+import android.util.Log;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Calendar;
 import java.util.Date;
-
-import com.tatait.tataweibo.util.Tools;
-
-import android.content.Context;
-import android.os.Environment;
-import android.util.Log;
 
 public class FileService {
 	private File public_line_info_file;
@@ -91,11 +89,7 @@ public class FileService {
 			Date lastDate = new Date(lastTime);
 			Date nowDate = Calendar.getInstance().getTime();
 			long between = (nowDate.getTime() - lastDate.getTime()) / 1000;// 除以1000是为了转换成秒
-			if (between >= 120) {
-				return true;
-			} else {
-				return false;
-			}
+			return between >= 120;
 		} else {
 			// 不存在则新建
 			return true;
@@ -113,8 +107,7 @@ public class FileService {
 	 * @throws Exception
 	 */
 	public void saveToSDCard(String filename, String content) throws Exception {
-		File file = new File(context.getExternalFilesDir(null),
-				filename);
+		File file = new File(context.getExternalFilesDir(null),filename);
 		FileOutputStream outStream = new FileOutputStream(file);
 		outStream.write(content.getBytes());
 		outStream.close();
@@ -136,20 +129,20 @@ public class FileService {
 		outStream.close();
 	}
 	
-	public void clearData() {
-		Tools.getInstance().contentList = null;
-		if (Environment.getExternalStorageState().equals(
-				Environment.MEDIA_MOUNTED)) {
-			public_line_info_file = new File(context.getExternalFilesDir(null)
-					+ "/" + PUBLICLINEINFO);
-		} else {
-			public_line_info_file = new File(context.getFilesDir() + "/"
-					+ PUBLICLINEINFO);
-		}
-		if (public_line_info_file.exists()) {
-			public_line_info_file.delete();
-		}
-	}
+//	public void clearData() {
+//		Tools.getInstance().contentList = null;
+//		if (Environment.getExternalStorageState().equals(
+//				Environment.MEDIA_MOUNTED)) {
+//			public_line_info_file = new File(context.getExternalFilesDir(null)
+//					+ "/" + PUBLICLINEINFO);
+//		} else {
+//			public_line_info_file = new File(context.getFilesDir() + "/"
+//					+ PUBLICLINEINFO);
+//		}
+//		if (public_line_info_file.exists()) {
+//			public_line_info_file.delete();
+//		}
+//	}
 	
 	/**
      * 获取文件获得后缀名

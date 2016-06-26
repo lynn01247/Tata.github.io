@@ -25,12 +25,12 @@ import android.widget.TextView;
  */
 
 public class ViewFile extends Activity {
-	
+
 	private String fileNameString;
 	private static final String gb2312 = "GB2312";
 	private static final String utf8 = "UTF-8";
 	private static final String defaultCode = utf8;
-	
+
 	//这个Activity 利用 intent 携带 bundle的方法
 	//接受到了listAllFileActivity传过来的用户要求打开的文件名称和地址
 	@Override
@@ -43,12 +43,12 @@ public class ViewFile extends Activity {
 			reCodeAndShow(defaultCode);
 		} catch (Exception e) {}
 	}
-	
+
 	//创建并填充MENU菜单
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = this.getMenuInflater();
-		inflater.inflate(R.layout.menu, menu);
+		inflater.inflate(R.menu.menu, menu);
 		return true;
 	}
 
@@ -70,7 +70,7 @@ public class ViewFile extends Activity {
 		default:
 			break;
 		}
-		
+
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -81,14 +81,14 @@ public class ViewFile extends Activity {
 		String fileString = getStringFromFile(code);
 		tv.setText(fileString);
 	}
-	
+
 	//从文件得到字符串
 	public String getStringFromFile(String code)
 	{
 		try {
 			StringBuffer sBuffer = new StringBuffer();
 			FileInputStream fInputStream = new FileInputStream(fileNameString);
-			
+
 			//java.io.InputStreamReader 直接将编码作为参数引入内部函数处理
 			InputStreamReader inputStreamReader = new InputStreamReader(fInputStream, code);
 			BufferedReader in = new BufferedReader(inputStreamReader);
@@ -106,10 +106,10 @@ public class ViewFile extends Activity {
 		}
 		return null;
 	}
-	
+
 	//帮助框的标题，内容的设置
 	private void doAbout() {
-		
+
 		Dialog dialog = new AlertDialog.Builder(ViewFile.this)
 		.setTitle("aboutTitle")
 		.setMessage("aboutInfo")
@@ -117,8 +117,8 @@ public class ViewFile extends Activity {
 							public void onClick(DialogInterface dialoginterface, int i) {}
 						} )
 		.create();
-		
+
 		dialog.show();
 	}
-	
+
 }

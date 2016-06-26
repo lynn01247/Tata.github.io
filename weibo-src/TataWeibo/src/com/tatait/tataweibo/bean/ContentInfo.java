@@ -15,6 +15,10 @@ public class ContentInfo {
 	private String userName;
 	// 发布人头像
 	private String userIcon;
+	private String biaotai_num;
+	private String pinglun_num;
+	private String share_num;
+	private Boolean follow_me;
 	// 发布时间
 	private String time;
 	// 来自
@@ -96,4 +100,35 @@ public class ContentInfo {
 		this.text = text;
 	}
 
+	public Boolean getFollow_me() {
+		return follow_me;
+	}
+
+	public void setFollow_me(Boolean follow_me) {
+		this.follow_me = follow_me;
+	}
+
+	public String getBiaotai_num() {
+		return biaotai_num;
+	}
+
+	public void setBiaotai_num(String biaotai_num) {
+		this.biaotai_num = biaotai_num;
+	}
+
+	public String getPinglun_num() {
+		return pinglun_num;
+	}
+
+	public void setPinglun_num(String pinglun_num) {
+		this.pinglun_num = pinglun_num;
+	}
+
+	public String getShare_num() {
+		return share_num;
+	}
+
+	public void setShare_num(String share_num) {
+		this.share_num = share_num;
+	}
 }

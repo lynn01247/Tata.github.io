@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/layout_title_bar"
-        layout="@layout/home_tilte_bar" />
+        layout="@layout/top_back_bar" />
 
     <EditText
         android:id="@+id/weibo_txt"
@@ -45,7 +45,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
-            android:text="@string/add_pic" />
+            android:text="@string/add_pic"
+            android:visibility="gone"/>
     </LinearLayout>
 
 </LinearLayout>

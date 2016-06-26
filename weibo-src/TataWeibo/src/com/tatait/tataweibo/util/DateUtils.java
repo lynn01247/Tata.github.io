@@ -13,11 +13,9 @@ public class DateUtils {
     /**
      * 计算出指定的日期的将来或者过去的指定天数。
      * 
-     * @param Date
-     *            date 计算的基准日期
-     * @param int dayNum 指定的天数
-     * @param Boolean
-     *            flag 若flag是true，要计算将来日期，否则，是过去日期
+     * @param date 计算的基准日期
+     * @param dayNum 指定的天数
+     * @param flag 若flag是true，要计算将来日期，否则，是过去日期
      * 
      * @return String compDate 计算后的日期
      */
@@ -259,5 +257,50 @@ public class DateUtils {
             returnStr = minuteStr + "分钟";
         }
         return returnStr==null?"1秒 前":returnStr+" 前";
+    }
+
+    /**
+     * 计算两个日期型的时间相差多少时间--针对微博
+     *
+     * @param startDate
+     *            开始日期
+     * @param endDate
+     *            结束日期
+     * @return
+     */
+    public String twoDateDistanceForWeibo(Date startDate, Date endDate) {
+
+        if (startDate == null || endDate == null) {
+            return null;
+        }
+        long timeLong = endDate.getTime() - startDate.getTime();
+        long years = timeLong / (1000 * 60 * 60 * 24 * 365);
+        long days = (timeLong - years * (1000 * 60 * 60 * 24 * 365)) /(1000 * 60 * 60 * 24);
+        long hours = (timeLong - years * (1000 * 60 * 60 * 24 * 365) - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
+        long minutes = (timeLong - years * (1000 * 60 * 60 * 24 * 365) - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60)) / (1000 * 60);
+        long seconds = (timeLong - years * (1000 * 60 * 60 * 24 * 365) - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60) - minutes * (1000 * 60)) / 1000;
+
+        String yearStr = String.valueOf(years);
+        String dayStr = String.valueOf(days);
+        String hourStr = String.valueOf(hours);
+        String minuteStr = String.valueOf(minutes);
+        String secondStr = String.valueOf(seconds);
+        String returnStr = null;
+        if (years != 0) {
+            returnStr = startDate.getYear()+"-"+startDate.getMonth()+"-"+startDate.getDay()+ " "+ startDate.getHours()+":"+startDate.getMinutes();
+        }else if (days != 0) {
+            returnStr = startDate.getMonth()+"-"+startDate.getDay()+ " "+ startDate.getHours()+":"+startDate.getMinutes();
+        } else if (hours != 0) {
+            returnStr = "今天 "+ startDate.getHours()+":"+startDate.getMinutes();
+        } else if (minutes != 0) {
+            returnStr = minuteStr + "分钟 前";
+        } else if (seconds != 0) {
+            returnStr = secondStr + "秒 前";
+        }
+
+        if (returnStr == null) {
+            returnStr = "刚刚";
+        }
+        return returnStr +" ";
     }
 }
