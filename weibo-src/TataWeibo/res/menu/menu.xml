@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content">
+
+    <item
+        android:id="@+id/utf8"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="UTF-8" />
+
+    <item
+        android:id="@+id/gb2312"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="GB2312" />
+
+    <item
+        android:id="@+id/about"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="About" />
+</menu>
