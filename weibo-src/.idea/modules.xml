@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/TataWeibo/TataWeibo.iml" filepath="$PROJECT_DIR$/TataWeibo/TataWeibo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/weibo-src.iml" filepath="$PROJECT_DIR$/weibo-src.iml" />
+    </modules>
+  </component>
+</project>

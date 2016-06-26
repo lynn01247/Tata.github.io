@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="WeiboSDK-release-">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/TataWeibo/build/intermediates/exploded-aar/WeiboSDK-release/res" />
+      <root url="jar://$PROJECT_DIR$/TataWeibo/build/intermediates/exploded-aar/WeiboSDK-release/jars/libs/weibosdkcore.jar!/" />
+      <root url="jar://$PROJECT_DIR$/TataWeibo/build/intermediates/exploded-aar/WeiboSDK-release/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
