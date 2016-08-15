@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/music_play"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/shape_blue_white"
+    android:background="@drawable/shape"
     android:orientation="vertical" >
 
     <include
@@ -21,7 +20,7 @@
             android:layout_height="90sp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:background="@drawable/qianlanse" >
+            android:background="@drawable/yinshe" >
 
             <FrameLayout
                 android:id="@+id/album_frameLayout"

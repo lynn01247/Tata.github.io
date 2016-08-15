@@ -16,12 +16,8 @@ import android.widget.TabWidget;
 import android.widget.Toast;
 
 import com.tatait.tataweibo.bean.Constants;
-import com.tatait.tataweibo.bean.FirstEvent;
 import com.tatait.tataweibo.service.MusicService;
 import com.tatait.tataweibo.util.show.SlidingMenu;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -49,7 +45,7 @@ public class TabMainActivity extends TabActivity {
     SlidingMenu idMenu;
 
     public static ImageButton menuPlayButton, menuNextButton;
-    public String color = "#000000";
+
     @Override
     protected void onStart() {
         // TODO Auto-generated method stub
@@ -59,8 +55,6 @@ public class TabMainActivity extends TabActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.maintabs);
-        //注册EventBus
-        EventBus.getDefault().register(this);
         ButterKnife.bind(this);
         menuPlayButton = (ImageButton) findViewById(R.id.menu_play_button);
         menuNextButton = (ImageButton) findViewById(R.id.menu_next_button);
@@ -111,14 +105,15 @@ public class TabMainActivity extends TabActivity {
         tabhost.addTab(tabhost.newTabSpec("TAB_MORE").setIndicator("TAB_MORE")
                 .setContent(new Intent(this, MoreActivity.class)));
         mainRadio.check(R.id.radio_button0);
-        radioButton0.setTextColor(Color.parseColor(color));
+        radioButton0.setTextColor(Color.parseColor("#0000ff"));
+
         mainRadio.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup arg0, int rid) {
                 switch (rid) {
                     case R.id.radio_button0:// 首页
                         tabhost.setCurrentTabByTag("TAB_HOME");
-                        radioButton0.setTextColor(Color.parseColor(color));
+                        radioButton0.setTextColor(Color.parseColor("#0000ff"));
                         radioButton2.setTextColor(Color.parseColor("#686767"));
                         radioButton3.setTextColor(Color.parseColor("#686767"));
                         radioButton4.setTextColor(Color.parseColor("#686767"));
@@ -126,7 +121,7 @@ public class TabMainActivity extends TabActivity {
                     case R.id.radio_button2:// 音乐
                         tabhost.setCurrentTabByTag("TAB_MUSIC");
                         radioButton0.setTextColor(Color.parseColor("#686767"));
-                        radioButton2.setTextColor(Color.parseColor(color));
+                        radioButton2.setTextColor(Color.parseColor("#0000ff"));
                         radioButton3.setTextColor(Color.parseColor("#686767"));
                         radioButton4.setTextColor(Color.parseColor("#686767"));
                         break;
@@ -134,7 +129,7 @@ public class TabMainActivity extends TabActivity {
                         tabhost.setCurrentTabByTag("TAB_LOVE_READ");
                         radioButton0.setTextColor(Color.parseColor("#686767"));
                         radioButton2.setTextColor(Color.parseColor("#686767"));
-                        radioButton3.setTextColor(Color.parseColor(color));
+                        radioButton3.setTextColor(Color.parseColor("#0000ff"));
                         radioButton4.setTextColor(Color.parseColor("#686767"));
                         break;
                     case R.id.radio_button4:// 更多
@@ -142,28 +137,11 @@ public class TabMainActivity extends TabActivity {
                         radioButton0.setTextColor(Color.parseColor("#686767"));
                         radioButton2.setTextColor(Color.parseColor("#686767"));
                         radioButton3.setTextColor(Color.parseColor("#686767"));
-                        radioButton4.setTextColor(Color.parseColor(color));
+                        radioButton4.setTextColor(Color.parseColor("#0000ff"));
                 }
             }
 
         });
-    }
-
-    @Subscribe
-    public void onEventMainThread(FirstEvent event) {
-        if ("true".equals(event.getMsg())) {
-            mainRadio.setBackgroundColor(getResources().getColor(R.color.left_itembg_pressed));
-        } else {
-            mainRadio.setBackgroundColor(getResources().getColor(R.color.layout_bg));
-        }
-    }
-
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        //反注册EventBus
-        EventBus.getDefault().unregister(this);
     }
 
     public void toggleMenu(View view) {

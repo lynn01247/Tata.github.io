@@ -73,12 +73,6 @@ public class UserDao {
 	public void deleteUser(UserInfo user) {
 
 	}
-	// 删除
-	public void deleteAllUser() {
-		db = dbHelper.getWritableDatabase();
-		db.delete(DBInfo.Table.USER_TABLE,null,null);
-		db.close();
-	}
 
 	// 更加ID查询用户
 	public UserInfo findUserByUserId(String user_id) {

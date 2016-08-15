@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/home_ll"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <!-- 顶部菜单 -->
@@ -13,8 +13,13 @@
     <!-- 加载进度条 -->
     <include
         android:id="@+id/load_progress"
-        layout="@layout/progress"
-        android:visibility="gone"/>
+        layout="@layout/progress" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:contentDescription="@null"
+        android:src="@drawable/load" />
 
     <com.tatait.tataweibo.util.show.XListView
         android:id="@+id/home_lv"
@@ -25,33 +30,4 @@
         android:fastScrollEnabled="true"
         android:focusable="true"
         android:visibility="gone" />
-
-    <RelativeLayout
-        android:id="@+id/home_login_ll"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:visibility="visible">
-
-        <Button
-            android:id="@+id/home_login_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:drawableLeft="@drawable/xinlang_icn"
-            android:layout_centerInParent="true"
-            android:text="新浪微博登录"
-            android:textColor="@color/sblue"
-            android:textSize="20sp" />
-        <TextView
-            android:layout_below="@id/home_login_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_size_5dp"
-            android:gravity="center"
-            android:textSize="@dimen/font_size_13sp"
-            android:textColor="@color/coral"
-            android:text="如若想获取新微博内容，请先登录新浪微博账号。"/>
-    </RelativeLayout>
 </LinearLayout>

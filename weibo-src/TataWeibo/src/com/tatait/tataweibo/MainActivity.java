@@ -20,7 +20,6 @@ import com.tatait.tataweibo.dao.UserDao;
 import com.tatait.tataweibo.util.Global;
 import com.tatait.tataweibo.util.SharedPreferencesUtils;
 import com.tatait.tataweibo.util.Tools;
-import com.umeng.socialize.Config;
 
 import java.util.List;
 
@@ -35,17 +34,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-//        Config.dialogSwitch=true;
-//          如想让你的app在android 6.0系统上也能运行的话，需要动态获取权限，没有权限的话分享sdk会出错，参考一下代码做动态获取权限,适配安卓6.0系统
-//          你需要最新的android.support.v4包，或者v13的包可也以
-//            if(Build.VERSION.SDK_INT>=23){
-//                String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CALL_PHONE,Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.SET_DEBUG_APP,Manifest.permission.SYSTEM_ALERT_WINDOW,Manifest.permission.GET_ACCOUNTS,Manifest.permission.WRITE_APN_SETTINGS};
-//                ActivityCompat.requestPermissions(this,mPermissionList,REQUEST_PERM);
-//            }
-        //分享跳转
-        // Intent intent = new Intent(MainActivity.this, ShareandAuthActivity.class);
-        //         startActivity(intent);
-        if ((Boolean) SharedPreferencesUtils.getParam(getApplicationContext(), Global.LOAD, false)) {
+        if ((Boolean) SharedPreferencesUtils.getParam(MainActivity.this, Global.LOAD, false)) {
             ImageView loadImage = (ImageView) findViewById(R.id.mainImage);
             //设置透明度渐变效果(0.0-1.0)
             AlphaAnimation animation = new AlphaAnimation(0.3f, 1.0f);
@@ -112,20 +101,14 @@ public class MainActivity extends Activity {
                                 }
                             }).create().show();
         } else {
-            //校验登录状态
+            //校验登陆状态
             UserDao dao = new UserDao(MainActivity.this);
             List<UserInfo> userList = dao.findAllUser();
             if (userList == null || userList.isEmpty()) {
-                //判断--》没有登录？--》是否是游客登录状态、微信QQ登录状态
-                if(!Global.LOGIN_TYPE_NULL.equals(SharedPreferencesUtils.getParam(getApplicationContext(), Global.LOGIN_TYPE, Global.LOGIN_TYPE_NULL))){
-                    startActivity(new Intent(this, TabMainActivity.class));
-                    finish();
-                }else {
-                    //如果没有登录且非游客登录则跳转到登录授权页面
-                    Intent intent = new Intent(this, OAuthActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
+                //如果没有登录则跳转到登录授权页面
+                Intent intent = new Intent(this, OAuthActivity.class);
+                startActivity(intent);
+                finish();
             } else {
                 //如果登录过则跳转到登录页面
                 Intent intent = new Intent(this, LoginCircleActivity.class);

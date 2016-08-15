@@ -4,6 +4,8 @@
       <root url="jar://$PROJECT_DIR$/TataWeibo/libs/android-async-http-1.4.5.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ideaLibSources/android-async-http-1.4.5-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

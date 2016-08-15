@@ -156,7 +156,7 @@ public class HomeAdapters extends BaseAdapter {
             ch.content_source.setText("来自" + source);
             if (info.getFollow_me()) {
                 ch.guanzhu.setText(" 已关注 ");
-                ch.guanzhu.setTextColor(homeActivity.getResources().getColor(R.color.left_itembg_pressed));
+                ch.guanzhu.setTextColor(homeActivity.getResources().getColor(R.color.gray));
                 ch.guanzhu.setBackgroundResource(R.drawable.corner_white_5dp_gray);
             } else {
                 ch.guanzhu.setText(" 关注 ");

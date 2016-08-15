@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tatait.tataweibo">
+    package="com.tatait.tataweibo"
+    android:versionCode="4"
+    android:versionName="2.0" >
 
-    <!-- umeng 分享 -->
-    <uses-permission android:name="android.permission.READ_LOGS" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!-- QQ、QQ空间所需权限 -->
-    <uses-permission android:name="android.permission.SET_DEBUG_APP" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
-    <!-- umeng 分享 -->
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="23" />
+    <!-- 全屏显示：@android:style/Theme.NoTitleBar.Fullscreen -->
 
-    <!-- 短信 -->
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.READ_SMS" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <!-- 短信 -->
+    <!-- 获取权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 用于调用 JNI -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 在SDCard中创建与删除文件权限 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!-- 往SDCard写入数据权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 相机权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <!-- SharedSdk 开始配置 -->
     <!-- 1. SharedSdk 权限配置 -->
@@ -47,59 +46,13 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Translucent.NoTitleBar"
-        android:name="com.tatait.tataweibo.App">
-        <!-- Umeng beg-->
-        <!-- ###################注册SDK使用的Activity###################### -->
-        <!--分享编辑页-->
-        <!--<activity
-            android:name="com.tatait.tataweibo.share_auth.ShareandAuthActivity"
-            android:configChanges="orientation|keyboard"
-            android:launchMode="singleTask"
-            android:noHistory="true"
-            android:theme="@style/Theme.UMDialog"
-            android:windowSoftInputMode="stateVisible|adjustResize" >
-        </activity>-->
-        <activity android:name=".share_auth.AuthActivity" />
-        <activity android:name=".share_auth.ShareActivity" />
-        <activity android:name=".share_auth.UserinfoActivity" />
-        <activity android:name=".SMSLoginActivity" />
-        <!-- wechat callback-->
-        <activity
-            android:name=".wxapi.CallBackActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <!-- ############ QQ空间和QQ SSO授权的Activity注册 ############ -->
-        <activity
-            android:name="com.tencent.tauth.AuthActivity"
-            android:launchMode="singleTask"
-            android:noHistory="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <!-- 100424468，如果你使用的公用账号，则不需要修改；否则修改成你在QQ开放平台申请的 APP ID-->
-                <data android:scheme="tencent1105447910" />
-            </intent-filter>
-        </activity>
-        <activity android:name="com.tencent.connect.common.AssistActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <!-- ###################添加UmengAppkey###################### -->
-        <meta-data
-            android:name="UMENG_APPKEY"
-            android:value="5787292fe0f55ab838002d32" >
-        </meta-data>
-        <!-- Umeng beg-->
+        android:theme="@android:style/Theme.Translucent.NoTitleBar">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -119,10 +72,10 @@
             </intent-filter>
 
             <!-- 调用新浪原生SDK，需要注册的回调activity -->
-            <!--<intent-filter>
+            <intent-filter>
                 <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
                 <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
         <!-- 2. SharedSdk 添加activity信息 -->
         <!-- 3. SharedSdk 如果您集成了微信，易信，新浪微博支付宝还需要添加下面回调的activity处理 -->
@@ -153,7 +106,7 @@
 
         <!-- 授权 -->
         <activity android:name=".OAuthActivity" />
-        <!-- 登录 -->
+        <!-- 登陆 -->
         <activity android:name=".LoginCircleActivity" />
         <!-- 主页 -->
         <activity android:name=".HomeActivity" />
@@ -161,14 +114,7 @@
         <activity android:name=".ReadActivity" />
         <activity android:name=".UserInfoActivity" />
         <activity android:name=".MoreActivity" />
-        <activity android:name=".ErweimaActivity" />
         <activity android:name=".OpenFileActivity" />
-        <activity android:name=".TestActivity" />
-        <activity android:name=".AboutUsActivity" />
-        <activity android:name=".FeekBackActivity" />
-        <activity android:name=".DeviceInfoActivity" />
-        <activity android:name=".SetFrontActivity" />
-        <activity android:name=".LoginTypeActivity" />
         <activity android:name="com.tatait.tataweibo.util.file.ViewFile" />
         <!-- writer -->
         <activity

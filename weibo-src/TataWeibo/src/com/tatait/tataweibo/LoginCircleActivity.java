@@ -23,7 +23,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * 登录界面
+ * 登陆界面
  *
  * @author WSXL
  */

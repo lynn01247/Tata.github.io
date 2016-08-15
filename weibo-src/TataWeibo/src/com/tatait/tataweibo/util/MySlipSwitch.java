@@ -12,9 +12,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 
-/**
- * 粗糙的滑动
- */
 public class MySlipSwitch extends View implements OnTouchListener {
 
 	//开关开启时的背景，关闭时的背景，滑动按钮

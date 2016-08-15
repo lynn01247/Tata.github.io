@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
     <RelativeLayout
         android:id="@+id/content_rela"
@@ -52,7 +53,7 @@
                 android:layout_below="@+id/content_user"
                 android:gravity="center"
                 android:includeFontPadding="false"
-                android:textColor="@color/yinse"
+                android:textColor="@color/gray"
                 android:textSize="@dimen/font_size_12sp" />
 
             <TextView
@@ -63,7 +64,7 @@
                 android:layout_toRightOf="@+id/content_time"
                 android:gravity="center"
                 android:includeFontPadding="false"
-                android:textColor="@color/yinse"
+                android:textColor="@color/gray"
                 android:textSize="@dimen/font_size_12sp" />
         </RelativeLayout>
 
@@ -105,7 +106,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_size_1dp"
         android:layout_below="@id/content_image"
-        android:background="@color/yinse" />
+        android:background="@color/gray_white" />
 
     <LinearLayout
         android:id="@+id/share_pinglun_biaotai"
@@ -127,7 +128,7 @@
         <View
             android:layout_width="@dimen/margin_size_0.1dp"
             android:layout_height="@dimen/margin_size_20dp"
-            android:background="@color/yinse" />
+            android:background="@color/gray_white" />
 
         <TextView
             android:id="@+id/pinglun_num"
@@ -142,7 +143,7 @@
         <View
             android:layout_width="@dimen/margin_size_0.1dp"
             android:layout_height="@dimen/margin_size_20dp"
-            android:background="@color/yinse" />
+            android:background="@color/gray_white" />
 
         <TextView
             android:id="@+id/share_num"
@@ -160,5 +161,5 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_size_10dp"
         android:layout_below="@id/share_pinglun_biaotai"
-        android:background="@color/yinse" />
+        android:background="@color/gray_white" />
 </RelativeLayout>

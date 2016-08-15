@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="@dimen/margin_size_50dp"
-    android:background="@color/blue_press">
+    android:background="@color/sblue">
 
     <com.tatait.tataweibo.util.show.CircularImage
         android:id="@+id/home_title_bar_user_photo"
