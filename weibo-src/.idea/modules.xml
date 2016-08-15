@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TataWeibo/TataWeibo.iml" filepath="$PROJECT_DIR$/TataWeibo/TataWeibo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/weibo-src.iml" filepath="$PROJECT_DIR$/weibo-src.iml" />
+      <module fileurl="file://$PROJECT_DIR$/materia.iml" filepath="$PROJECT_DIR$/materia.iml" />
+      <module fileurl="file://$PROJECT_DIR$/social_sdk/social_sdk.iml" filepath="$PROJECT_DIR$/social_sdk/social_sdk.iml" />
     </modules>
   </component>
 </project>

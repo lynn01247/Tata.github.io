@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/getinfo_layout_rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_size_45dp"
+        android:background="@color/layout_title_bg"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:id="@+id/getinfo_layout_back"
+            android:layout_width="@dimen/margin_size_100dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="@dimen/margin_size_20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_size_10dp"
+                android:src="@drawable/back_img" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="返回"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_15sp"
+                android:ellipsize="end"
+                android:singleLine="true"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/getinfo_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/margin_size_40dp"
+            android:layout_marginRight="@dimen/margin_size_40dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_18sp" />
+    </RelativeLayout>
+
+    <!--<com.hq.pulltorefresh.PullToRefreshScrollView
+        android:id="@+id/getinfo_list_new_layout_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/detail_white"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:id="@+id/getinfo_list_new_layout_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.hq.view.MyListView
+                android:id="@+id/getinfo_list_new_layout_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin_size_10dp"
+                android:divider="@null"
+                android:listSelector="@android:color/transparent"
+                android:overScrollMode="never" />
+        </LinearLayout>
+    </com.hq.pulltorefresh.PullToRefreshScrollView>-->
+    <ListView
+        android:id="@+id/getinfo_list_new_layout_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_white"
+        android:divider="@null"
+        android:listSelector="@android:color/transparent"
+        android:overScrollMode="never" />
+</LinearLayout>

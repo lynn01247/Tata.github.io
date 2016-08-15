@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="zxingLibrary-release-">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/TataWeibo/build/intermediates/exploded-aar/zxingLibrary-release/res" />
+      <root url="jar://$PROJECT_DIR$/TataWeibo/build/intermediates/exploded-aar/zxingLibrary-release/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,94 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/setfront_layout_rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_size_45dp"
+        android:background="@color/layout_title_bg"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:id="@+id/setfront_layout_back"
+            android:layout_width="@dimen/margin_size_100dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="@dimen/margin_size_20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_size_10dp"
+                android:src="@drawable/back_img" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="返回"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_15sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/setfront_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/margin_size_40dp"
+            android:layout_marginRight="@dimen/margin_size_40dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="字体大小"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_18sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_size_10dp"
+        android:text="拖动设置字体大小"
+        android:textSize="@dimen/font_size_15sp" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="60"
+        android:progress="20" />
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="默认"
+        android:textSize="@dimen/font_size_15sp" />
+
+    <TextView
+        android:id="@+id/tv2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/margin_size_10dp"
+        android:padding="@dimen/margin_size_10dp"
+        android:background="@drawable/corner_gray_color_5dp"
+        android:gravity="center"
+        android:text="这行字是预览的效果：12345678+abcdefg"
+        android:textSize="@dimen/font_size_15sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_size_20dp"
+        android:layout_marginLeft="@dimen/margin_size_10dp"
+        android:layout_marginRight="@dimen/margin_size_10dp"
+        android:padding="@dimen/margin_size_10dp"
+        android:textColor="@color/gray"
+        android:text="温馨提示：\n修改字体后，刷新页面即可生效，部分界面需重启APP后生效！"
+        android:textSize="@dimen/font_size_15sp" />
+</LinearLayout>

@@ -4,31 +4,151 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/sblue"
-    tools:context="com.tatait.tataweibo.MainActivity" >
+    tools:context="com.tatait.tataweibo.MainActivity">
 
     <TextView
         android:id="@+id/loadText"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="@string/title_load"
-        android:textColor="@color/white"
-        android:typeface="serif"
-        android:textStyle="bold|italic"
-        android:textSize="40sp"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        />
+        android:text="@string/title_load"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        android:textStyle="bold|italic"
+        android:typeface="serif" />
 
-     <Button
-         android:id="@+id/loadButton"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentBottom="true"
-         android:layout_centerHorizontal="true"
-         android:layout_marginBottom="81dp"
-         android:drawableLeft="@drawable/xinlang_icn"
-         android:text="@string/login"
-         android:textColor="@color/sblue"
-         android:textSize="20sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin_size_20dp"
+        android:orientation="vertical">
 
+        <Button
+            android:id="@+id/xinlangButton"
+            android:layout_width="@dimen/margin_size_200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableLeft="@drawable/xinlang_icn"
+            android:text="新浪微博登录"
+            android:textColor="@color/sblue"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/load_gui_sms"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/margin_size_25dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="GUI短信验证登录"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_15sp" />
+
+            <TextView
+                android:id="@+id/load_zidingyi_sms"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/margin_size_25dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="自定义短信验证登录"
+                android:textColor="@color/red"
+                android:textSize="@dimen/font_size_15sp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/load_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_size_0.1dp"
+            android:layout_below="@id/xinlangButton"
+            android:layout_margin="@dimen/margin_size_8dp"
+            android:background="@color/gray_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/load_view"
+            android:layout_marginLeft="@dimen/margin_size_50dp"
+            android:layout_marginRight="@dimen/margin_size_50dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/weixin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_size_20dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:src="@drawable/wx" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_size_8dp"
+                    android:gravity="center"
+                    android:text="微信登录"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/QQ"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_size_20dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:src="@drawable/qq" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_size_8dp"
+                    android:gravity="center"
+                    android:text="QQ登录"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/nologin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_size_20dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:src="@drawable/nologin" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_size_8dp"
+                    android:gravity="center"
+                    android:text="游客登录"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>

@@ -1,1 +1,1 @@
-include ':TataWeibo'
+include ':TataWeibo', ':social_sdk'

@@ -74,7 +74,7 @@ public class WriterWeiboActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.writer);
         ButterKnife.bind(this);
-        // 设置当前登陆人
+        // 设置当前登录人
         UserInfo user = UserSession.nowUser;
         MyClick click = new MyClick();
         writer_weibo.setOnClickListener(click);

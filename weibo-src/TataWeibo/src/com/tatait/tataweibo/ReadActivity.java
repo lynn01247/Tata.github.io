@@ -7,13 +7,20 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tatait.tataweibo.bean.FirstEvent;
 import com.tatait.tataweibo.service.MusicService;
+import com.tatait.tataweibo.util.Global;
+import com.tatait.tataweibo.util.SharedPreferencesUtils;
 import com.tatait.tataweibo.util.file.ViewFile;
 import com.tatait.tataweibo.util.show.CircularImage;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,6 +36,8 @@ import butterknife.ButterKnife;
  * @author WSXL
  */
 public class ReadActivity extends Activity {
+    @Bind(R.id.layout_title_bar)
+    FrameLayout layout_title_bar;
     @Bind(R.id.home_title_bar_user_photo)
     CircularImage circularImage;
     @Bind(R.id.home_title_login_user)
@@ -61,8 +70,10 @@ public class ReadActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reading);
         ButterKnife.bind(this);
+        //注册EventBus
+        EventBus.getDefault().register(this);
         initView();
-
+        inisetstyle();
     }
 
     private void initView() {
@@ -133,6 +144,39 @@ public class ReadActivity extends Activity {
                 }
                 break;
         }
+    }
+
+    @Subscribe
+    public void onEventMainThread(FirstEvent event) {
+        if ("true".equals(event.getMsg())) {
+            layout_title_bar.setBackgroundColor(getResources().getColor(R.color.left_itembg_pressed));
+            txt_wb_title.setTextColor(getResources().getColor(R.color.gray));
+            read_relative.setBackgroundResource(R.drawable.shape_black_white);
+        } else {
+            layout_title_bar.setBackgroundColor(getResources().getColor(R.color.blue_press));
+            txt_wb_title.setTextColor(getResources().getColor(R.color.white));
+            read_relative.setBackgroundResource(R.drawable.shape_blue_white);
+        }
+    }
+
+    private void inisetstyle() {
+        boolean night = (Boolean) SharedPreferencesUtils.getParam(getApplicationContext(), Global.NIGHT, false);
+        if (night) {
+            layout_title_bar.setBackgroundColor(getResources().getColor(R.color.left_itembg_pressed));
+            txt_wb_title.setTextColor(getResources().getColor(R.color.gray));
+            read_relative.setBackgroundResource(R.drawable.shape_black_white);
+        } else {
+            layout_title_bar.setBackgroundColor(getResources().getColor(R.color.blue_press));
+            txt_wb_title.setTextColor(getResources().getColor(R.color.white));
+            read_relative.setBackgroundResource(R.drawable.shape_blue_white);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //反注册EventBus
+        EventBus.getDefault().unregister(this);
     }
 
     // 主菜单点击返回键，弹出对话框

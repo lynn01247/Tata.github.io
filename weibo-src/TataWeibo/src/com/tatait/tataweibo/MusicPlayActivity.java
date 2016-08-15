@@ -38,6 +38,8 @@ import butterknife.ButterKnife;
 
 public class MusicPlayActivity extends Activity {
     private static MusicPlayActivity instance = null;
+    @Bind(R.id.music_play)
+    LinearLayout music_play;
     @Bind(R.id.layout_title_bar)
     FrameLayout layout_title_bar;
     @Bind(R.id.home_title_bar_user_photo)
@@ -119,6 +121,7 @@ public class MusicPlayActivity extends Activity {
         setContentView(R.layout.music_play);
         ButterKnife.bind(this);
         iniview();
+        inisetstyle();
         //注册EventBus
         EventBus.getDefault().register(this);
         // TabHost
@@ -214,6 +217,19 @@ public class MusicPlayActivity extends Activity {
         });
     }
 
+    private void inisetstyle() {
+        boolean night = (Boolean) SharedPreferencesUtils.getParam(getApplicationContext(), Global.NIGHT, false);
+        if (night) {
+            layout_title_bar.setBackgroundColor(getResources().getColor(R.color.left_itembg_pressed));
+            txt_wb_title.setTextColor(getResources().getColor(R.color.gray));
+            music_play.setBackgroundResource(R.drawable.shape_black_white);
+        } else {
+            layout_title_bar.setBackgroundColor(getResources().getColor(R.color.blue_press));
+            txt_wb_title.setTextColor(getResources().getColor(R.color.white));
+            music_play.setBackgroundResource(R.drawable.shape_blue_white);
+        }
+    }
+
     // 主菜单点击返回键，弹出对话框
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -237,7 +253,7 @@ public class MusicPlayActivity extends Activity {
     @Override
     protected void onPause() {// 如果突然电话到来，停止播放音乐
         if (MusicService.mplayer != null && MusicService.mplayer.isPlaying()
-                && (Boolean) SharedPreferencesUtils.getParam(MusicPlayActivity.this, Global.MUSIC, false)) {
+                && (Boolean) SharedPreferencesUtils.getParam(getApplicationContext(), Global.MUSIC, false)) {
             position = MusicService.mplayer.getCurrentPosition();// 保存当前播放点
             MusicService.mplayer.stop();
         }
@@ -274,9 +290,13 @@ public class MusicPlayActivity extends Activity {
     @Subscribe
     public void onEventMainThread(FirstEvent event) {
         if ("true".equals(event.getMsg())) {
-            layout_title_bar.setBackgroundColor(getResources().getColor(R.color.black));
+            layout_title_bar.setBackgroundColor(getResources().getColor(R.color.left_itembg_pressed));
+            txt_wb_title.setTextColor(getResources().getColor(R.color.gray));
+            music_play.setBackgroundResource(R.drawable.shape_black_white);
         } else {
-            layout_title_bar.setBackgroundColor(getResources().getColor(R.color.white));
+            layout_title_bar.setBackgroundColor(getResources().getColor(R.color.blue_press));
+            txt_wb_title.setTextColor(getResources().getColor(R.color.white));
+            music_play.setBackgroundResource(R.drawable.shape_blue_white);
         }
     }
 

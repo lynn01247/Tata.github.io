@@ -5,12 +5,17 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -24,13 +29,22 @@ import com.sina.weibo.sdk.openapi.models.User;
 import com.tatait.tataweibo.bean.Constants;
 import com.tatait.tataweibo.bean.UserInfo;
 import com.tatait.tataweibo.dao.UserDao;
+import com.tatait.tataweibo.share_auth.AuthActivity;
 import com.tatait.tataweibo.util.AccessTokenKeeper;
+import com.tatait.tataweibo.util.Global;
 import com.tatait.tataweibo.util.HttpUtils;
 import com.tatait.tataweibo.util.ProgressDialogBar;
+import com.tatait.tataweibo.util.SMSUtils;
+import com.tatait.tataweibo.util.SharedPreferencesUtils;
 import com.tatait.tataweibo.util.ToastUtil;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
+
+import java.util.Map;
 
 /**
  * 授权页面
@@ -50,11 +64,15 @@ public class OAuthActivity extends Activity {
     private AuthInfo mAuthInfo;
     private Context mContext;
 
+    private UMShareAPI mShareAPI = null;
+    private boolean ready = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "----------in method:onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.load);
+        /** init auth api**/
+        mShareAPI = UMShareAPI.get(this);
         /**
          * 模拟器区别初始化:获取当前已保存过的 Token
          */
@@ -65,7 +83,13 @@ public class OAuthActivity extends Activity {
         /**
          * 授权按钮的动作
          */
-        Button startBtn = (Button) findViewById(R.id.loadButton);
+        Button startBtn = (Button) findViewById(R.id.xinlangButton);
+        LinearLayout weixin = (LinearLayout) findViewById(R.id.weixin);
+        LinearLayout qq = (LinearLayout) findViewById(R.id.QQ);
+        LinearLayout nologin = (LinearLayout) findViewById(R.id.nologin);
+        TextView load_gui_sms = (TextView) findViewById(R.id.load_gui_sms);
+        TextView load_zidingyi_sms = (TextView) findViewById(R.id.load_zidingyi_sms);
+        //新浪微博授权
         startBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,11 +101,68 @@ public class OAuthActivity extends Activity {
             }
 
         });
+        //微信登录
+        weixin.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /**begin invoke umeng api**/
+                mShareAPI.doOauthVerify(OAuthActivity.this, SHARE_MEDIA.WEIXIN, umAuthListener);
+            }
+        });
+        //QQ登录
+        qq.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /**begin invoke umeng api**/
+                mShareAPI.doOauthVerify(OAuthActivity.this, SHARE_MEDIA.QQ, umAuthListener);
+            }
+        });
+        //游客登录--》没有个人中心
+        nologin.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferencesUtils.setParam(OAuthActivity.this, Global.LOGIN_TYPE, Global.LOGIN_TYPE_YK);
+                JumpToNextStep("LoginOther");
+            }
+        });
+        load_gui_sms.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ready = true;
+                Global.handlerForSMSLogin = handlerForSMSLogin;
+                SMSUtils.init(OAuthActivity.this);
+            }
+        });
+        load_zidingyi_sms.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Global.handlerForSMSLogin = handlerForSMSLogin;
+                Intent intent = new Intent(OAuthActivity.this, SMSLoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
-
+    /**
+     * 子线程回调
+     */
+    public Handler handlerForSMSLogin = new Handler() {
+        @Override
+        public void handleMessage(final Message msg) {
+            super.handleMessage(msg);
+            Bundle bundle = msg.getData();
+            switch (msg.what) {
+                case 666://GUI短信验证回调
+                    startActivity(new Intent(OAuthActivity.this, TabMainActivity.class));
+//                    finish();
+                    break;
+            }
+        }
+    };
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        mShareAPI.onActivityResult(requestCode, resultCode, data);
         if (mSsoHandler != null) {
             mSsoHandler.authorizeCallBack(requestCode, resultCode, data);
         }
@@ -99,6 +180,7 @@ public class OAuthActivity extends Activity {
         public void onComplete(Bundle values) {
             // 从 Bundle 中解析 Token
             Log.i(TAG, "SUCCESS");
+            SharedPreferencesUtils.setParam(OAuthActivity.this, Global.LOGIN_TYPE, Global.LOGIN_TYPE_WB);
             mAccessToken = Oauth2AccessToken.parseAccessToken(values);
             if (mAccessToken.isSessionValid()) {
                 // 保存 Token 到 SharedPreferences
@@ -124,12 +206,14 @@ public class OAuthActivity extends Activity {
         @Override
         public void onCancel() {
             Toast.makeText(OAuthActivity.this,R.string.weibosdk_demo_toast_auth_canceled,Toast.LENGTH_SHORT).show();
+            SharedPreferencesUtils.setParam(OAuthActivity.this, Global.LOGIN_TYPE, Global.LOGIN_TYPE_NULL);
         }
 
         // 授权出错时
         @Override
         public void onWeiboException(WeiboException arg0) {
             Toast.makeText(OAuthActivity.this,"Auth exception : " + arg0.getMessage(), Toast.LENGTH_SHORT).show();
+            SharedPreferencesUtils.setParam(OAuthActivity.this, Global.LOGIN_TYPE, Global.LOGIN_TYPE_NULL);
         }
     }
 
@@ -209,7 +293,7 @@ public class OAuthActivity extends Activity {
                             UserDao dao = new UserDao(OAuthActivity.this);
                             dao.insertUser(userInfo);
                             Toast.makeText(OAuthActivity.this,R.string.weibosdk_demo_toast_auth_success,Toast.LENGTH_SHORT).show();
-                            makeToLogin();
+                            JumpToNextStep("LoginWeibo");
                         } else {
                             Toast.makeText(OAuthActivity.this,R.string.weibosdk_demo_toast_auth_failed,Toast.LENGTH_SHORT).show();
                         }
@@ -219,12 +303,17 @@ public class OAuthActivity extends Activity {
     }
 
     /**
-     * 跳转登陆页面
+     * 跳转登录页面
      */
-    protected void makeToLogin() {
-        Intent intent = new Intent(this, LoginCircleActivity.class);
-        startActivity(intent);
-        finish();
+    protected void JumpToNextStep(String type) {
+        if(type.equals("LoginWeibo")) {
+            Intent intent = new Intent(this, LoginCircleActivity.class);
+            startActivity(intent);
+            finish();
+        }else if(type.equals("LoginOther")) {
+            startActivity(new Intent(this, TabMainActivity.class));
+            finish();
+        }
     }
 
     // 主菜单点击返回键，弹出对话框
@@ -242,5 +331,64 @@ public class OAuthActivity extends Activity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    /**
+     * auth callback interface
+     **/
+    private UMAuthListener umAuthListener = new UMAuthListener() {
+        @Override
+        public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
+            Toast.makeText(getApplicationContext(), "授权登录成功！", Toast.LENGTH_SHORT).show();
+            if(platform == SHARE_MEDIA.QQ) {
+                SharedPreferencesUtils.setParam(OAuthActivity.this, Global.LOGIN_TYPE, Global.LOGIN_TYPE_QQ);
+            }else if(platform == SHARE_MEDIA.WEIXIN){
+                SharedPreferencesUtils.setParam(OAuthActivity.this, Global.LOGIN_TYPE, Global.LOGIN_TYPE_WX);
+            }
+            com.umeng.socialize.utils.Log.d("user info", "user info:" + data.toString());
+            JumpToNextStep("LoginOther");
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+            Toast.makeText(getApplicationContext(), "授权登录失败！", Toast.LENGTH_SHORT).show();
+            SharedPreferencesUtils.setParam(OAuthActivity.this, Global.LOGIN_TYPE, Global.LOGIN_TYPE_NULL);
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform, int action) {
+            Toast.makeText(getApplicationContext(), "授权登录取消！", Toast.LENGTH_SHORT).show();
+            SharedPreferencesUtils.setParam(OAuthActivity.this, Global.LOGIN_TYPE, Global.LOGIN_TYPE_NULL);
+        }
+    };
+    /**
+     * delauth callback interface
+     **/
+    private UMAuthListener umdelAuthListener = new UMAuthListener() {
+        @Override
+        public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
+            Toast.makeText(getApplicationContext(), "delete Authorize succeed", Toast.LENGTH_SHORT).show();
+            SharedPreferencesUtils.setParam(OAuthActivity.this, Global.LOGIN_TYPE, Global.LOGIN_TYPE_NULL);
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+            Toast.makeText(getApplicationContext(), "delete Authorize fail", Toast.LENGTH_SHORT).show();
+            SharedPreferencesUtils.setParam(OAuthActivity.this, Global.LOGIN_TYPE, Global.LOGIN_TYPE_NULL);
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform, int action) {
+            Toast.makeText(getApplicationContext(), "delete Authorize cancel", Toast.LENGTH_SHORT).show();
+            SharedPreferencesUtils.setParam(OAuthActivity.this, Global.LOGIN_TYPE, Global.LOGIN_TYPE_NULL);
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(ready){
+            SMSUtils.destroy();
+        }
     }
 }

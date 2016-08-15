@@ -24,11 +24,13 @@ import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.tatait.tataweibo.MainActivity.UserSession;
 import com.tatait.tataweibo.bean.Constants;
 import com.tatait.tataweibo.bean.UserInfo;
+import com.tatait.tataweibo.dao.UserDao;
 import com.tatait.tataweibo.service.MusicService;
 import com.tatait.tataweibo.util.AccessTokenKeeper;
+import com.tatait.tataweibo.util.CommonUtil;
 import com.tatait.tataweibo.util.ImageLoadUtils;
 import com.tatait.tataweibo.util.Tools;
-import com.tatait.tataweibo.util.fragment.MyFragment;
+import com.tatait.tataweibo.fragment.MyFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -115,9 +117,11 @@ public class HomeActivity extends FragmentActivity {
         MyFragment.setContext(HomeActivity.this,getApplicationContext());
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction f_transaction = fragmentManager.beginTransaction();
-        f_transaction.replace(R.id.main_content_frame_parent, myFragment);
+        f_transaction.replace(R.id.main_content_frame, myFragment);
         f_transaction.commitAllowingStateLoss();
-        initLeftLayout();
+        if (CommonUtil.isLogin(getApplicationContext())) {//判断已经登录
+            initLeftLayout();
+        }
         // initRightLayout();
     }
 
@@ -232,6 +236,8 @@ public class HomeActivity extends FragmentActivity {
         AccessTokenKeeper.clear(getApplicationContext());
         mAccessToken = new Oauth2AccessToken();
         Toast.makeText(HomeActivity.this, "已注销", Toast.LENGTH_LONG).show();
+        UserDao dao = new UserDao(getApplicationContext());
+        dao.deleteAllUser();
         goOAuth();
     }
 

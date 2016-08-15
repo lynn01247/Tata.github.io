@@ -4,8 +4,7 @@
     android:layout_height="fill_parent"
     android:gravity="center"
     android:orientation="horizontal"
-    android:background="@color/yinse"
-    android:visibility="visible" >
+    android:background="@color/yinse">
 
     <ProgressBar
         android:id="@+id/pg_progress"
